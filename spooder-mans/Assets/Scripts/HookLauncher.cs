@@ -32,6 +32,7 @@ public class HookLauncher : MonoBehaviour {
 		if( Input.GetButton ("Hook1" ))
 		{
 			inputReceived = true;
+			rigidbody2D.velocity = Vector2.zero;
 		}
 		else
 		{
