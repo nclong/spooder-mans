@@ -28,6 +28,7 @@ public class HookManager : MonoBehaviour {
 		this.playerSpeed = playerSpeed;
 		this.dir = dir;
 
+		transform.eulerAngles = new Vector3( transform.eulerAngles.x, transform.eulerAngles.y, dir.Angle() );
 		transform.localPosition = this.dir * distance;
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
@@ -47,8 +48,11 @@ public class HookManager : MonoBehaviour {
 
 		if( character != null )
 		{
-			rigidbody2D.velocity = Vector2.zero;
-			transform.gameObject.SetActive(false);
+			rigidbody2D.velocity = dir * -hookSpeed;
+			character.Stunned = true;
+			collisionObject.rigidbody2D.velocity = dir * -playerSpeed;
+
 		}
 	}
+
 }

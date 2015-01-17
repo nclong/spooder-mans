@@ -26,4 +26,10 @@ public static class Constants {
 		return Vector2.MoveTowards(oldVec, newVec, magnitude * Time.fixedDeltaTime);
 	}
 
+	public static float Angle(this Vector3 u)
+	{
+		u = u.normalized;
+		return Mathf.Atan2( u.y, u.x) * Mathf.Rad2Deg;
+	}
+
 }
