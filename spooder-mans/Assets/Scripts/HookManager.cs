@@ -22,13 +22,12 @@ public class HookManager : MonoBehaviour {
 		//line.SetPosition(0, transform.parent.position);
 	}
 
-	public void Launch( Vector3 dir, float distance, float hookSpeed, float playerSpeed, Transform parent )
+	public void Launch( Vector3 dir, float distance, float hookSpeed, float playerSpeed )
 	{
 		this.hookSpeed = hookSpeed;
 		this.playerSpeed = playerSpeed;
 		this.dir = dir;
 
-		transform.parent = parent;
 		transform.localPosition = this.dir * distance;
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
@@ -39,10 +38,17 @@ public class HookManager : MonoBehaviour {
 	{
 		GameObject collisionObject = collision.gameObject;
 		WallAttributes wall = (WallAttributes)collisionObject.GetComponent<WallAttributes>();
+		CharacterAttributes character = (CharacterAttributes)collisionObject.GetComponent<CharacterAttributes>();
 		if( wall != null )
 		{
 			rigidbody2D.velocity = Vector2.zero;
 			transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+		}
+
+		if( character != null )
+		{
+			rigidbody2D.velocity = Vector2.zero;
+			transform.gameObject.SetActive(false);
 		}
 	}
 }

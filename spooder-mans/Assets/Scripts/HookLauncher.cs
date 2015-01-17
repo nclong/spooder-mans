@@ -8,7 +8,8 @@ public class HookLauncher : MonoBehaviour {
 	public float cursorDistance;
 	public float hookLaunchSpeed;
 	public float playerSpeed;
-
+	public float maxChainDistance;
+	
 	private bool inputReceived;
 	private bool inputReleased = true;
 	private HookManager hookManager;
@@ -41,9 +42,14 @@ public class HookLauncher : MonoBehaviour {
 		if( inputReceived && inputReleased )
 		{
 			Vector3 hookDirection = (mouseInWorld3D - transform.position).normalized;
-			hookManager.Launch( hookDirection, cursorDistance, hookLaunchSpeed, playerSpeed, transform );
+			hookManager.Launch( hookDirection, cursorDistance, hookLaunchSpeed, playerSpeed );
 
 			inputReleased = false;
+		}
+
+		if( (theHook.transform.position - transform.position).magnitude >= maxChainDistance )
+		{
+			theHook.rigidbody2D.velocity *= -1;
 		}
 
 	
