@@ -28,7 +28,7 @@ public class HookLauncher : MonoBehaviour {
 
 		hookCursor.transform.localPosition = (mouseInWorld3D - transform.position).normalized * cursorDistance;
 
-		if( Input.GetButton ("Hook" ))
+		if( Input.GetButton ("Hook1" ))
 		{
 			inputReceived = true;
 		}
@@ -49,13 +49,14 @@ public class HookLauncher : MonoBehaviour {
 	
 	}
 
-	public void OnCollsion2D(Collision2D collision)
+	public void OnCollsionEnter2D(Collision2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
 		WallAttributes wall = (WallAttributes)GetComponent<WallAttributes>();
 		if( wall != null )
 		{
 			rigidbody2D.velocity = Vector2.zero;
+			theHook.SetActive( false );
 		}
 	}
 }

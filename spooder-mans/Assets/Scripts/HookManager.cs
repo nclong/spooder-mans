@@ -35,14 +35,14 @@ public class HookManager : MonoBehaviour {
 		//line.SetPosition(0, transform.parent.position );
 	}
 
-	public void OnCollisionEnter2D(Collision2D collision)
+	public void OnTriggerEnter2D(Collider2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
 		WallAttributes wall = (WallAttributes)collisionObject.GetComponent<WallAttributes>();
 		if( wall != null )
 		{
+			rigidbody2D.velocity = Vector2.zero;
 			transform.parent.rigidbody2D.velocity = dir * playerSpeed;
 		}
-		transform.gameObject.SetActive( false );
 	}
 }

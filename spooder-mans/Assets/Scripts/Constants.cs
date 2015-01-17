@@ -8,4 +8,9 @@ public static class Constants {
 		return new Vector2( u.x, u.y );
 	}
 
+	public static bool IsWithin(this float f, float target, float epsilon)
+	{
+		return Mathf.Abs(f - target)< epsilon;
+	}
+
 }

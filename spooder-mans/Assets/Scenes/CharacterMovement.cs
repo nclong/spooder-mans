@@ -14,8 +14,8 @@ public class CharacterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float movementVert = Input.GetAxisRaw ("Vertical") * playerSpeed * Time.deltaTime;
-		float movementHoriz = Input.GetAxisRaw ("Horizontal") * playerSpeed * Time.deltaTime;
+		float movementVert = Input.GetAxisRaw ("LeftJoystickY1") * playerSpeed * Time.deltaTime;
+		float movementHoriz = Input.GetAxisRaw ("RightJoystickX1") * playerSpeed * Time.deltaTime;
 
 		transform.Translate(Vector2.up *movementVert);
 		transform.Translate(Vector2.right *movementHoriz);
