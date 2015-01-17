@@ -20,11 +20,17 @@ public class FireManager : MonoBehaviour {
 	public float WhichWall;
 	public float RandomTimer;
 
+	private WallAttributes LeftAttributes;
+	private WallAttributes RightAttributes;
+
 
 	// Use this for initialization
 	void Start () {
 		FireOn = false;
-			
+
+		LeftAttributes = LeftWall.GetComponent<WallAttributes>();
+		RightAttributes = RightWall.GetComponent<WallAttributes> ();
+
 		WhichWall = Random.Range(1,10);
 		RandomTimer = Random.Range(RandomTimerMin, RandomTimerMax);
 	
@@ -49,7 +55,7 @@ public class FireManager : MonoBehaviour {
 			if(FireTime < TimeForStage1 )
 			{
 				//stage 1
-				if (WhichWall <5){
+				if (WhichWall <=5){
 					LeftWall.renderer.material.color = new Color(1, .61f, 1);
 				}
 				else if(WhichWall >5) {
@@ -59,7 +65,7 @@ public class FireManager : MonoBehaviour {
 			else if(FireTime < TimeForStage2)
 			{
 				//stage 2
-				if (WhichWall < 5){
+				if (WhichWall <= 5){
 					LeftWall.renderer.material.color = new Color(1, .129f, .5255f);
 				}
 				else if(WhichWall > 5) {
@@ -69,17 +75,21 @@ public class FireManager : MonoBehaviour {
 			else if(FireTime < TimeForStage3)
 			{
 				//stage 3
-				if (WhichWall <5){
+				if (WhichWall <=5){
 					LeftWall.renderer.material.color = Color.red;
+					LeftAttributes.Fire = true;
 				}
 				else if(WhichWall >5) {
 					RightWall.renderer.material.color = Color.red;
+					RightAttributes.Fire = true;
 				}
 			}
 			else 
 			{
 				LeftWall.renderer.material.color = Color.white;
 				RightWall.renderer.material.color = Color.white;
+				LeftAttributes.Fire = false;
+				RightAttributes.Fire = false;
 				FireOn = false;
 				FireTime = 0;
 				RandomTimer = Random.Range(RandomTimerMin, RandomTimerMax);
