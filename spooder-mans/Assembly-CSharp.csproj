@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\HookManager.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\Sweep.cs" />
+     <Compile Include="Assets\Scripts\SweepLauncher.cs" />
      <Compile Include="Assets\Scripts\WallAttributes.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
