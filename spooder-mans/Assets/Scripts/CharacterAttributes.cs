@@ -9,7 +9,10 @@ public class CharacterAttributes : MonoBehaviour {
 	public bool Swept;
 	public bool Sweeping;
 	public bool HookTraveling;
+    public bool HookLaunched;
 	public WallAttributes currentWall;
+
+	public int playerNum;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,7 @@ public class CharacterAttributes : MonoBehaviour {
 			Hooked = false;
 			Swept = false;
 			HookTraveling = false;
+            HookLaunched = false;
 			Debug.Log("Hook Traveling False");
 			currentWall = wall;
 		}

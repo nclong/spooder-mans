@@ -8,11 +8,12 @@ public class InputManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		PlayerInputs = new PlayerInput[4];
+		PlayerInputs [0] = new PlayerInput ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		for( int i = 0; i < 4; ++i )
+	void FixedUpdate () {
+		for( int i = 0; i < 1; ++i )
 		{
 			PlayerInputs[i].leftJoystickX = Input.GetAxis ("LeftJoystickX" + (i+1).ToString());
 			PlayerInputs[i].leftJoystickY = Input.GetAxis ("LeftJoystickY" + (i+1).ToString());
@@ -23,6 +24,5 @@ public class InputManager : MonoBehaviour {
 			PlayerInputs[i].sweep = Input.GetButton ("Sweep" + (i+1).ToString());
 			PlayerInputs[i].hook = !(Input.GetAxis("Hook" + (i+1).ToString()).IsWithin( 0f, 0.01f));
 		}
-	
 	}
 }

@@ -15,22 +15,26 @@ public class CharacterMovement : MonoBehaviour {
 	private bool jumpReleased = true;
 	private CharacterAttributes attributes;
 	private int framesAccelerating = 0;
+	private int playerNum;
+	private PlayerInput playerInput;
 	
 	// Use this for initialization
 	void Start () {
 		attributes = GetComponent<CharacterAttributes> ();
+		playerNum = attributes.playerNum;
+		playerInput = InputManager.PlayerInputs [playerNum];
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		//Moving
 		if (attributes.OnWall && !attributes.Sweeping) {
-			rigidbody2D.velocity += new Vector2( 0f, Input.GetAxis("LeftJoystickY1")) * verticalAccel;
+			rigidbody2D.velocity += new Vector2( 0f, playerInput.leftJoystickY) * verticalAccel;
 			if( rigidbody2D.velocity.magnitude > playerSpeed )
 			{
 				rigidbody2D.velocity = rigidbody2D.velocity.normalized * playerSpeed;
 			}
-			if( Input.GetAxis ("LeftJoystickY1").IsWithin(0f, 0.01f) && !attributes.Hooked && !attributes.HookTraveling)
+			if( playerInput.leftJoystickY.IsWithin(0f, 0.01f) && !attributes.Hooked && !attributes.HookTraveling)
 			{
 				rigidbody2D.velocity = Vector2.zero;
 			}
@@ -39,7 +43,7 @@ public class CharacterMovement : MonoBehaviour {
 
 
 		//Jumping
-		if (Input.GetButton ("Jump1") || Input.GetKey (KeyCode.Space)) {
+		if (playerInput.jump || Input.GetKey (KeyCode.Space)) {
 			jumpPressed = true;		
 		}
 		else{

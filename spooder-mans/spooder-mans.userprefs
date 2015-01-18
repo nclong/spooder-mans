@@ -1,9 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\Dropbox\VGDC\Smash\Assets\Scripts\PlayerController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CharacterMovement.cs">
     <Files>
-      <File FileName="..\..\..\Dropbox\VGDC\Smash\Assets\Scripts\Acceleration.cs" Line="47" Column="3" />
-      <File FileName="..\..\..\Dropbox\VGDC\Smash\Assets\Scripts\PlayerController.cs" Line="282" Column="32" />
+      <File FileName="Assets\Scripts\HookLauncher.cs" Line="46" Column="20" />
+      <File FileName="Assets\Scripts\InputManager.cs" Line="11" Column="41" />
+      <File FileName="Assets\Scripts\CharacterAttributes.cs" Line="76" Column="1" />
+      <File FileName="Assets\Scripts\CharacterMovement.cs" Line="35" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
