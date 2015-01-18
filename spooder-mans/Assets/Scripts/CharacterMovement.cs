@@ -17,7 +17,10 @@ public class CharacterMovement : MonoBehaviour {
 	private int framesAccelerating = 0;
 	private int playerNum;
 	private PlayerInput playerInput;
-	
+
+	public AudioSource jumpAudio;	
+	public AudioSource grappleAudio;
+
 	// Use this for initialization
 	void Start () {
 		attributes = GetComponent<CharacterAttributes> ();
@@ -44,12 +47,20 @@ public class CharacterMovement : MonoBehaviour {
 
 		//Jumping
 		if (playerInput.jump || Input.GetKey (KeyCode.Space)) {
+
+			//jump Audio
+			if(attributes.OnWall){
+				jumpAudio.Play ();
+			}
+
+
 			jumpPressed = true;		
 		}
 		else{
 			jumpPressed = false;
 			jumpReleased = true;
 		}
+
 
 		if( jumpPressed && jumpReleased && attributes.OnWall )
 		{
@@ -58,6 +69,8 @@ public class CharacterMovement : MonoBehaviour {
 			jumpReleased = false;
 			attributes.OnWall = false;
 		}
+
+
 
 		if (attributes.Jumping) {
 			float scale = 1f - (float)(++framesAccelerating) / (float) max_jump_accel_frames;
@@ -69,6 +82,16 @@ public class CharacterMovement : MonoBehaviour {
 				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
 			}
 		}
+
+
+		//hook audio
+		if(attributes.HookTraveling){
+			grappleAudio.Play ();
+		}
+		else{
+			grappleAudio.Stop ();
+		}
+
 	}
 //
 //	void OnTriggerEnter2D (Collider2D other){
