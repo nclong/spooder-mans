@@ -28,10 +28,11 @@ public class HookManager : MonoBehaviour {
 	{
 		this.hookSpeed = hookSpeed;
 		this.playerSpeed = playerSpeed;
-		this.dir = dir;
+        this.dir = dir;
 
 		transform.eulerAngles = new Vector3( transform.eulerAngles.x, transform.eulerAngles.y, dir.Angle() );
-		transform.localPosition = this.dir * distance;
+        transform.localPosition = new Vector2(this.dir.x * Mathf.Sign(transform.parent.localScale.x), this.dir.y);
+        Debug.DrawRay(transform.position, dir, Color.red, 2f);
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
 		//line.SetPosition(0, transform.parent.position );
@@ -57,7 +58,11 @@ public class HookManager : MonoBehaviour {
 				attributes.HookTraveling = true;
 				rigidbody2D.velocity = Vector2.zero;
 				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
-			}
+
+                attributes.anim.SetBool("Idle", false);
+                attributes.anim.SetBool("Jumped", false);
+                attributes.anim.SetBool("Hooked", attributes.HookTraveling);
+            }
 
 		}
 

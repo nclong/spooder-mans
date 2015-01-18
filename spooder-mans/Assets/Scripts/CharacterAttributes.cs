@@ -19,17 +19,15 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
-    public GameObject gameStateManagerObject;
-
+public Animator anim;public GameObject gameStateManagerObject;
     private int framesSwept = 0;
     private int framesSpawned = 0;
-    private GameStateManager gameStateManager;
-
+    private PlayerInput playerInput;    private GameStateManager gameStateManager;
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
-        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();
-	}
+        anim = GetComponent<Animator>();
+        playerInput = InputManager.PlayerInputs[playerNum];        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -109,6 +107,10 @@ public class CharacterAttributes : MonoBehaviour {
             HookLaunched = false;
 			Debug.Log("Hook Traveling False");
 			currentWall = wall;
+
+            anim.SetBool("Hooked", HookTraveling);
+            anim.SetBool("Jumped", Jumping);
+            anim.SetBool("Idle", OnWall);
 		}
 	}
 
@@ -117,6 +119,15 @@ public class CharacterAttributes : MonoBehaviour {
         if( transform.position.y > 9f )
         {
             transform.position = new Vector3( transform.position.x, 9f, 0f );
+        }
+
+        if (Mathf.Sign(transform.localScale.x) >= 0)
+        {
+            playerInput.inverted = false;
+        }
+        else
+        {
+            playerInput.inverted = true;
         }
     }
 
