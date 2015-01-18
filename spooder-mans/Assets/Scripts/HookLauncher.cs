@@ -26,8 +26,9 @@ public class HookLauncher : MonoBehaviour {
 		theHook.SetActive(false);
 		attributes = GetComponent<CharacterAttributes> ();
 		cursorDirection = new Vector2 (1f, 0f);
+        playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs [playerNum];
-		playerNum = attributes.playerNum;
+		
 	}
 	
 	// Update is called once per frame
@@ -37,7 +38,7 @@ public class HookLauncher : MonoBehaviour {
 //
 //		hookCursor.transform.localPosition = (mouseInWorld3D - transform.position).normalized * cursorDistance;
 
-		if (!playerInput.rightJoystickX.IsWithin (0f, 0.01f) && !playerInput.rightJoystickY.IsWithin (0f, 0.01f)) {
+		if (!playerInput.rightJoystickX.IsWithin (0f, 0.001f) && !playerInput.rightJoystickY.IsWithin (0f, 0.001f)) {
 			cursorDirection = new Vector2(playerInput.rightJoystickX, playerInput.rightJoystickY);
 			cursorDirection = cursorDirection.normalized;
 			hookCursor.transform.localPosition = cursorDirection * cursorDistance;
@@ -53,7 +54,7 @@ public class HookLauncher : MonoBehaviour {
 			inputReceived = false;
 		}
 
-		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling )
+		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.Swept)
 		{
 			Vector3 hookDirection = cursorDirection;
 			hookManager.attributes = attributes;

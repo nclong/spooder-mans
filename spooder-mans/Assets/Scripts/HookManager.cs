@@ -42,6 +42,7 @@ public class HookManager : MonoBehaviour {
 		GameObject collisionObject = collision.gameObject;
 		WallAttributes wall = (WallAttributes)collisionObject.GetComponent<WallAttributes>();
 		CharacterAttributes character = (CharacterAttributes)collisionObject.GetComponent<CharacterAttributes>();
+        HookManager otherHook = collisionObject.GetComponent<HookManager>();
 		if( wall != null )
 		{
 
@@ -60,14 +61,33 @@ public class HookManager : MonoBehaviour {
 
 		}
 
-		if( character != null && collisionObject != transform.parent.gameObject )
+		if( character != null && collisionObject != transform.parent.gameObject && attributes.OnWall )
 		{
 			rigidbody2D.velocity = dir * -hookSpeed;
 			character.Hooked = true;
-			Debug.Log ("Hooked true");
 			collisionObject.rigidbody2D.velocity = dir * -playerSpeed;
 
 		}
+        else if( character != null && collisionObject != transform.parent.gameObject && !attributes.OnWall )
+        {
+            transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+            character.Hooked = true;
+            attributes.HookTraveling = true;
+        }
+        else if( character != null && collisionObject == transform.parent.gameObject )
+        {
+            attributes.HookLaunched = false;
+            transform.gameObject.SetActive( false );
+        }
+
+        if( otherHook != null )
+        {
+            CharacterAttributes otherCharacter = otherHook.transform.parent.gameObject.GetComponent<CharacterAttributes>();
+            attributes.HookLaunched = false;
+            transform.gameObject.SetActive( false );
+            otherHook.transform.gameObject.SetActive( false );
+            otherCharacter.HookLaunched = false;
+        }
 	}
 
 }

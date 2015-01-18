@@ -28,7 +28,7 @@ public class CharacterMovement : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		//Moving
-		if (attributes.OnWall && !attributes.Sweeping) {
+		if (attributes.OnWall && !attributes.Sweeping && !attributes.HookLaunched && !attributes.Hooked ) {
 			rigidbody2D.velocity += new Vector2( 0f, playerInput.leftJoystickY) * verticalAccel;
 			if( rigidbody2D.velocity.magnitude > playerSpeed )
 			{
