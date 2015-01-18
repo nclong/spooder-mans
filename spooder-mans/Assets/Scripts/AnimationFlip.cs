@@ -1,0 +1,56 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class AnimationFlip : MonoBehaviour {
+
+    public float LastX;
+    public bool PrevOnWall;
+
+    private CharacterAttributes attributes;
+   // public float LastXVelocity;
+    
+	// Use this for initialization
+	void Start () {
+
+        attributes = GetComponent<CharacterAttributes>();
+        PrevOnWall = attributes.OnWall;
+       // LastXVelocity = 0;
+	}
+
+    void FixedUpdate()
+    {
+        bool changeDirection = Mathf.Sign(LastX) != Mathf.Sign(rigidbody2D.velocity.x);
+
+        if (changeDirection)
+        {
+            transform.localScale = new Vector2(3 * Mathf.Sign(rigidbody2D.velocity.x), transform.localScale.y);
+            float sign = Mathf.Sign(transform.localScale.x);
+        }
+
+        PrevOnWall = attributes.OnWall;
+        LastX = rigidbody2D.velocity.x;
+
+        // Hook is also being flipped at the same time
+        // resulting in the hook being flipped twice
+        // fix here or in Nicks Code
+    }
+
+    void OnCollisionEnter2D(Collision2D collission)
+    {
+        Debug.Log("Wall Collision");
+        WallAttributes wall = (WallAttributes)collission.gameObject.GetComponent<WallAttributes>();
+
+        if (wall.WhichWall == "Left")
+        {
+            transform.localScale = new Vector2(3, transform.localScale.y);
+            Debug.Log("Left");
+        }
+        else if (wall.WhichWall == "Right")
+        {
+            transform.localScale = new Vector2(-3, transform.localScale.y);
+            Debug.Log("Right");
+        }
+
+    }
+
+}

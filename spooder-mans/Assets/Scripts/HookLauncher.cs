@@ -39,7 +39,7 @@ public class HookLauncher : MonoBehaviour {
 //		hookCursor.transform.localPosition = (mouseInWorld3D - transform.position).normalized * cursorDistance;
 
 		if (!playerInput.rightJoystickX.IsWithin (0f, 0.001f) && !playerInput.rightJoystickY.IsWithin (0f, 0.001f)) {
-			cursorDirection = new Vector2(playerInput.rightJoystickX, playerInput.rightJoystickY);
+			cursorDirection = new Vector2(playerInput.rightJoystickX * (playerInput.inverted ? -1 : 1), playerInput.rightJoystickY);
 			cursorDirection = cursorDirection.normalized;
 			hookCursor.transform.localPosition = cursorDirection * cursorDistance;
 		}
@@ -56,7 +56,8 @@ public class HookLauncher : MonoBehaviour {
 
 		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.Swept)
 		{
-			Vector3 hookDirection = cursorDirection;
+			Vector3 hookDirection = (hookCursor.transform.position - transform.position);
+            //hookDirection = new Vector3(hookDirection.x * Mathf.Sign(transform.localScale.x), hookDirection.y, hookDirection.z);
 			hookManager.attributes = attributes;
 			hookManager.Launch( hookDirection, cursorDistance, hookLaunchSpeed, playerSpeed );
             attributes.HookLaunched = true;

@@ -69,6 +69,11 @@ public class CharacterMovement : MonoBehaviour {
 			framesAccelerating = 0;
 			jumpReleased = false;
 			attributes.OnWall = false;
+
+            attributes.anim.SetBool("Idle", false);
+            attributes.anim.SetBool("Hooked", false);
+            attributes.anim.SetBool("Jumped", attributes.Jumping);
+
             if( attributes.HookTraveling )
             {
                 theHook.SetActive( false );
