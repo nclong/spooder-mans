@@ -13,6 +13,7 @@ public class HookLauncher : MonoBehaviour {
 	private bool inputReceived;
 	private bool inputReleased = true;
 	private HookManager hookManager;
+	private CharacterAttributes attributes;
 
 	private Vector2 mousePosition;
 	// Use this for initialization
@@ -20,10 +21,11 @@ public class HookLauncher : MonoBehaviour {
 		theHook.SetActive(true);
 		hookManager = (HookManager)theHook.GetComponent<HookManager>();
 		theHook.SetActive(false);
+		attributes = GetComponent<CharacterAttributes> ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector3 mouseInWorld3D = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 		mousePosition = mouseInWorld3D.In2D();
 
@@ -32,7 +34,6 @@ public class HookLauncher : MonoBehaviour {
 		if( Input.GetButton ("Hook1" ))
 		{
 			inputReceived = true;
-			rigidbody2D.velocity = Vector2.zero;
 		}
 		else
 		{
@@ -40,9 +41,10 @@ public class HookLauncher : MonoBehaviour {
 			inputReceived = false;
 		}
 
-		if( inputReceived && inputReleased )
+		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling )
 		{
 			Vector3 hookDirection = (mouseInWorld3D - transform.position).normalized;
+			hookManager.attributes = attributes;
 			hookManager.Launch( hookDirection, cursorDistance, hookLaunchSpeed, playerSpeed );
 
 			inputReleased = false;
@@ -64,6 +66,8 @@ public class HookLauncher : MonoBehaviour {
 		{
 			rigidbody2D.velocity = Vector2.zero;
 			theHook.SetActive( false );
+			attributes.OnWall = true;
+			attributes.HookTraveling = false;
 		}
 	}
 }

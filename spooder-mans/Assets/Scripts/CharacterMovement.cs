@@ -4,46 +4,84 @@ using System.Collections;
 public class CharacterMovement : MonoBehaviour {
 
 	public float playerSpeed;
-	public float jump_force;
-	public Vector2 jump_vector = new Vector2(1,1);
+	public float verticalAccel;
+	public float max_jump_accel_frames;
+	public float jumpAccel;
+	public float jumpDegrade;
+	public Vector2 left_wall_jump_vector;
+	public Vector2 right_wall_jump_vector;
+
+	private bool jumpPressed;
+	private bool jumpReleased = true;
+	private CharacterAttributes attributes;
+	private int framesAccelerating = 0;
 	
 	// Use this for initialization
 	void Start () {
-		
+		attributes = GetComponent<CharacterAttributes> ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		float movementVert = Input.GetAxisRaw ("LeftJoystickY1") * playerSpeed * Time.deltaTime;
-		float movementHoriz = Input.GetAxisRaw ("RightJoystickX1") * playerSpeed * Time.deltaTime;
-
-		transform.Translate(Vector2.up *movementVert);
-		transform.Translate(Vector2.right *movementHoriz);
-		if (Input.GetKeyDown ("space")){
-
-			//jump, GOAL: no control for a bit then only left and right
-			rigidbody2D.AddForce (jump_vector * jump_force);
-			rigidbody2D.gravityScale = 1;
-			Debug.Log ("jumped");
-			Debug.Log ("gravity = " + rigidbody2D.gravityScale);
-		} 
-	}
-	//preset this shit
-	void OnTriggerEnter2D (Collider2D other){
-		Debug.Log ("collided");
-		if(other.tag == "WallLeft"){
-			jump_vector = new Vector2(1,1);
-			rigidbody2D.velocity = new Vector2(0,0);
-			rigidbody2D.gravityScale = 0;
-			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
-
+	void FixedUpdate () {
+		//Moving
+		if (attributes.OnWall && !attributes.Sweeping) {
+			rigidbody2D.velocity += new Vector2( 0f, Input.GetAxis("LeftJoystickY1")) * verticalAccel;
+			if( rigidbody2D.velocity.magnitude > playerSpeed )
+			{
+				rigidbody2D.velocity = rigidbody2D.velocity.normalized * playerSpeed;
+			}
+			if( Input.GetAxis ("LeftJoystickY1").IsWithin(0f, 0.01f) && !attributes.Hooked && !attributes.HookTraveling)
+			{
+				rigidbody2D.velocity = Vector2.zero;
+			}
 		}
-		if(other.tag == "WallRight"){
-			jump_vector = new Vector2(-1,1);
-			rigidbody2D.velocity = new Vector2(0,0);
-			rigidbody2D.gravityScale = 0;
-			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
-			
+
+
+
+		//Jumping
+		if (Input.GetButton ("Jump1") || Input.GetKey (KeyCode.Space)) {
+			jumpPressed = true;		
+		}
+		else{
+			jumpPressed = false;
+			jumpReleased = true;
+		}
+
+		if( jumpPressed && jumpReleased && attributes.OnWall )
+		{
+			attributes.Jumping = true;
+			framesAccelerating = 0;
+			jumpReleased = false;
+			attributes.OnWall = false;
+		}
+
+		if (attributes.Jumping) {
+			float scale = 1f - (float)(++framesAccelerating) / (float) max_jump_accel_frames;
+			float powerScale = Mathf.Pow(scale, jumpDegrade);
+			if( framesAccelerating <= max_jump_accel_frames )
+			{
+				Vector2 jump_vector;
+				jump_vector = transform.position.x > 0 ? right_wall_jump_vector : left_wall_jump_vector;
+				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
+			}
 		}
 	}
+//
+//	void OnTriggerEnter2D (Collider2D other){
+//		Debug.Log ("collided");
+//		if(other.tag == "WallLeft"){
+//			jump_vector = new Vector2(1,1);
+//			rigidbody2D.velocity = new Vector2(0,0);
+//			rigidbody2D.gravityScale = 0;
+//			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
+//
+//		}
+//		if(other.tag == "WallRight"){
+//			jump_vector = new Vector2(-1,1);
+//			rigidbody2D.velocity = new Vector2(0,0);
+//			rigidbody2D.gravityScale = 0;
+//			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
+//			
+//		}
+//	}
 }

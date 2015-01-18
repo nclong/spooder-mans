@@ -7,6 +7,8 @@ public class HookManager : MonoBehaviour {
 	private float hookSpeed;
 	private float playerSpeed;
 	private Vector3 dir;
+
+	public CharacterAttributes attributes;
 	// Use this for initialization
 	void Start () {
 		//line = (LineRenderer)renderer;
@@ -42,14 +44,27 @@ public class HookManager : MonoBehaviour {
 		CharacterAttributes character = (CharacterAttributes)collisionObject.GetComponent<CharacterAttributes>();
 		if( wall != null )
 		{
-			rigidbody2D.velocity = Vector2.zero;
-			transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+
+			if( wall == attributes.currentWall)
+			{
+				transform.gameObject.SetActive(false);
+			}
+			else
+			{
+				transform.parent.rigidbody2D.velocity = Vector2.zero;
+				dir = (transform.position - transform.parent.position).normalized;
+				attributes.HookTraveling = true;
+				rigidbody2D.velocity = Vector2.zero;
+				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+			}
+
 		}
 
-		if( character != null )
+		if( character != null && collisionObject != transform.parent.gameObject )
 		{
 			rigidbody2D.velocity = dir * -hookSpeed;
-			character.Stunned = true;
+			character.Hooked = true;
+			Debug.Log ("Hooked true");
 			collisionObject.rigidbody2D.velocity = dir * -playerSpeed;
 
 		}
