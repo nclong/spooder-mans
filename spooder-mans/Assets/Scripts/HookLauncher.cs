@@ -9,6 +9,7 @@ public class HookLauncher : MonoBehaviour {
 	public float hookLaunchSpeed;
 	public float playerSpeed;
 	public float maxChainDistance;
+    public LayerMask markableLayer;
 	
 	private bool inputReceived;
 	private bool inputReleased = true;
@@ -17,6 +18,8 @@ public class HookLauncher : MonoBehaviour {
 	private Vector2 cursorDirection;
 	private PlayerInput playerInput;
 	private int playerNum;
+    private GameObject farMarker;
+    private RaycastHit2D farMarkerRay;
 
 	private Vector2 mousePosition;
 	// Use this for initialization
@@ -28,21 +31,41 @@ public class HookLauncher : MonoBehaviour {
 		cursorDirection = new Vector2 (1f, 0f);
         playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs [playerNum];
+        farMarker = (GameObject)Instantiate(hookCursor);
+        farMarker.transform.parent = transform;
+        farMarker.transform.localPosition = Vector3.zero;
+        farMarker.transform.localScale *= 2;
+        farMarker.SetActive( false );
 		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-//		Vector3 mouseInWorld3D = Camera.main.ScreenToWorldPoint( Input.mousePosition );
-//		mousePosition = mouseInWorld3D.In2D();
-//
-//		hookCursor.transform.localPosition = (mouseInWorld3D - transform.position).normalized * cursorDistance;
-
-		if (!playerInput.rightJoystickX.IsWithin (0f, 0.001f) && !playerInput.rightJoystickY.IsWithin (0f, 0.001f)) {
+		if (!playerInput.rightJoystickX.IsWithin (0f, 0.0001f) && !playerInput.rightJoystickY.IsWithin (0f, 0.0001f)) {
 			cursorDirection = new Vector2(playerInput.rightJoystickX, playerInput.rightJoystickY);
 			cursorDirection = cursorDirection.normalized;
 			hookCursor.transform.localPosition = cursorDirection * cursorDistance;
 		}
+        farMarkerRay = Physics2D.Raycast( hookCursor.transform.position.In2D(), cursorDirection, 100f,  markableLayer.value );
+        if( farMarkerRay.collider != null )
+        {
+            GameObject hitObject = farMarkerRay.collider.gameObject;
+            WallAttributes wall = hitObject.GetComponent<WallAttributes>();
+            CharacterAttributes hitCharacterAttributes = hitObject.GetComponent<CharacterAttributes>();
+            if( wall != null || ( hitCharacterAttributes != null && hitObject != transform.gameObject ) )
+            {
+                farMarker.SetActive( true );
+                farMarker.transform.position = farMarkerRay.point;
+            }
+            else
+            {
+                farMarker.SetActive( false );
+            }
+        }
+        else
+        {
+            farMarker.SetActive( false );
+        }
 
 		if( playerInput.hook )
 		{
