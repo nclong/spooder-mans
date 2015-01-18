@@ -23,6 +23,7 @@ public class FireManager : MonoBehaviour {
 	private WallAttributes LeftAttributes;
 	private WallAttributes RightAttributes;
 
+	public AudioSource fireAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -67,9 +68,11 @@ public class FireManager : MonoBehaviour {
 				//stage 2
 				if (WhichWall <= 5){
 					LeftWall.renderer.material.color = new Color(1, .129f, .5255f);
+					fireAudio.Play ();
 				}
 				else if(WhichWall > 5) {
 					RightWall.renderer.material.color = new Color(1, .129f, .5255f);
+					fireAudio.Play ();
 				}
 			}
 			else if(FireTime < TimeForStage3)
@@ -77,10 +80,13 @@ public class FireManager : MonoBehaviour {
 				//stage 3
 				if (WhichWall <=5){
 					LeftWall.renderer.material.color = Color.red;
+					//fireAudio.Play ();
 					LeftAttributes.Fire = true;
+
 				}
 				else if(WhichWall >5) {
 					RightWall.renderer.material.color = Color.red;
+					//fireAudio.Play ();
 					RightAttributes.Fire = true;
 				}
 			}
