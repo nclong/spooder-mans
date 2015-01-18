@@ -44,6 +44,8 @@ public class SweepLauncher : MonoBehaviour
             attributes.HookTraveling = false;
             attributes.Jumping = false;
             theHook.SetActive( false );
+
+
             
 
         }

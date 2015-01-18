@@ -100,6 +100,7 @@ public class CharacterAttributes : MonoBehaviour {
 			Debug.Log("Hook Traveling False");
 			currentWall = wall;
 
+
             anim.SetBool("Hooked", HookTraveling);
             anim.SetBool("Jumped", Jumping);
             anim.SetBool("Idle", OnWall);
