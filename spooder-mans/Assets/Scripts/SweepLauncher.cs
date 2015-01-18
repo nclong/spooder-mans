@@ -7,6 +7,7 @@ public class SweepLauncher : MonoBehaviour
     public int windUpFrames;
     public int activeFrames;
     public int cooldownFrames;
+    public GameObject theHook;
     
     private int currentFrames = 0;
     private CharacterAttributes attributes;
@@ -34,17 +35,23 @@ public class SweepLauncher : MonoBehaviour
 	void FixedUpdate () 
 	{
 
-        if( playerInput.sweep && !attributes.Sweeping )
+        if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
         {
             attributes.Sweeping = true;
             startSweepPos = transform.position;
+            transform.parent.rigidbody2D.velocity = Vector2.zero;
+            attributes.HookLaunched = false;
+            attributes.HookTraveling = false;
+            attributes.Jumping = false;
+            theHook.SetActive( false );
+            
+
         }
 
         if( attributes.Sweeping )
         {
             transform.position = startSweepPos;
             currentFrames++;
-            Debug.Log( "Sweep Frame: " + currentFrames.ToString() );
             if( currentFrames <= windUpFrames )
             {
                 collider2D.enabled = false;
@@ -76,16 +83,24 @@ public class SweepLauncher : MonoBehaviour
         CharacterAttributes character = CollisionObject.GetComponent<CharacterAttributes>();
 		if (character != null && character != attributes ) 
 		{
+            Debug.Log( "Sweeping Character" );
             CollisionObject.rigidbody2D.isKinematic = true;
             CollisionObject.collider2D.isTrigger = true;
 
             character.OnWall = false;
+            character.HookLaunched = false;
+            character.HookTraveling = false;
+            character.Hooked = false;
+            character.Jumping = false;
+            character.Sweeping = false;
+            character.Swept = true;
             Vector2 tossVector;
             tossVector = CollisionObject.transform.position.x > 0
                 ? new Vector2( -Strength, 0f )
                 : new Vector2( Strength, 0f );
             CollisionObject.rigidbody2D.velocity = tossVector;
-            character.Swept = true;
+            
+            
 		}
 	}
 }

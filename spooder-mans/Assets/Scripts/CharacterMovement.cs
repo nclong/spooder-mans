@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour {
 	public float jumpDegrade;
 	public Vector2 left_wall_jump_vector;
 	public Vector2 right_wall_jump_vector;
+    public GameObject theHook;
 
 	private bool jumpPressed;
 	private bool jumpReleased = true;
@@ -18,8 +19,8 @@ public class CharacterMovement : MonoBehaviour {
 	private int playerNum;
 	private PlayerInput playerInput;
 
-	public AudioSource jumpAudio;	
-	public AudioSource grappleAudio;
+	//public AudioSource jumpAudio;	
+	//public AudioSource grappleAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,7 @@ public class CharacterMovement : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		//Moving
-		if (attributes.OnWall && !attributes.Sweeping && !attributes.HookLaunched && !attributes.Hooked ) {
+		if ((attributes.OnWall && !attributes.Sweeping && !attributes.HookLaunched && !attributes.Hooked )) {
 			rigidbody2D.velocity += new Vector2( 0f, playerInput.leftJoystickY) * verticalAccel;
 			if( rigidbody2D.velocity.magnitude > playerSpeed )
 			{
@@ -48,10 +49,10 @@ public class CharacterMovement : MonoBehaviour {
 		//Jumping
 		if (playerInput.jump || Input.GetKey (KeyCode.Space)) {
 
-			//jump Audio
-			if(attributes.OnWall){
-				jumpAudio.Play ();
-			}
+            ////jump Audio
+            //if(attributes.OnWall){
+            //    jumpAudio.Play ();
+            //}
 
 
 			jumpPressed = true;		
@@ -62,12 +63,19 @@ public class CharacterMovement : MonoBehaviour {
 		}
 
 
-		if( jumpPressed && jumpReleased && attributes.OnWall )
+		if( jumpPressed && jumpReleased && (attributes.OnWall || attributes.HookTraveling ) )
 		{
 			attributes.Jumping = true;
 			framesAccelerating = 0;
 			jumpReleased = false;
 			attributes.OnWall = false;
+            if( attributes.HookTraveling )
+            {
+                theHook.SetActive( false );
+                attributes.HookTraveling = false;
+                attributes.HookLaunched = false;
+                rigidbody2D.velocity = Vector2.zero;
+            }
 		}
 
 
@@ -84,13 +92,13 @@ public class CharacterMovement : MonoBehaviour {
 		}
 
 
-		//hook audio
-		if(attributes.HookTraveling){
-			grappleAudio.Play ();
-		}
-		else{
-			grappleAudio.Stop ();
-		}
+        ////hook audio
+        //if(attributes.HookTraveling){
+        //    grappleAudio.Play ();
+        //}
+        //else{
+        //    grappleAudio.Stop ();
+        //}
 
 	}
 //

@@ -44,6 +44,7 @@ public class CharacterAttributes : MonoBehaviour {
                 Swept = false;
                 collider2D.isTrigger = false;
                 rigidbody2D.isKinematic = false;
+                framesSwept = 0;
             }
         }
 
