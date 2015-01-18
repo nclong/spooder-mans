@@ -19,18 +19,15 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
-    public Animator anim;
-
+public Animator anim;public GameObject gameStateManagerObject;
     private int framesSwept = 0;
     private int framesSpawned = 0;
-    private PlayerInput playerInput;
-
+    private PlayerInput playerInput;    private GameStateManager gameStateManager;
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
         anim = GetComponent<Animator>();
-        playerInput = InputManager.PlayerInputs[playerNum];
-	}
+        playerInput = InputManager.PlayerInputs[playerNum];        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -87,6 +84,17 @@ public class CharacterAttributes : MonoBehaviour {
                 character.HookLaunched = false;
                 character.Hooked = false;
 			}
+
+            if( OnWall )
+            {
+                rigidbody2D.velocity = Vector2.zero;
+            }
+
+            if( character.OnWall )
+            {
+                collisionObject.rigidbody2D.velocity = Vector2.zero;
+            }
+
 		}
 		if (wall != null) 
 		{
@@ -150,8 +158,6 @@ public class CharacterAttributes : MonoBehaviour {
 
     public void KillPlayer()
     {
-        transform.position = Spawner.transform.position;
-        rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y + Random.Range( -SpawnVariance, SpawnVariance ) );
         OnWall = false;
         Hooked = false;
         Jumping = false;
@@ -163,6 +169,16 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
-        //Decrease Stock
+        gameStateManager.LosePlayerLife( playerNum );
+
+        if( gameStateManager.playerStock[playerNum] > 0 )
+        {
+            transform.position = Spawner.transform.position;
+            rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y + Random.Range( -SpawnVariance, SpawnVariance ) );
+        }
+        else
+        {
+            Destroy( transform.gameObject );
+        }
     }
 }
