@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		for( int i = 0; i < 2; ++i )
+		for( int i = 0; i < 1; ++i )
 		{
 			PlayerInputs[i].leftJoystickX = Input.GetAxis ("LeftJoystickX" + (i+1).ToString());
 			PlayerInputs[i].leftJoystickY = Input.GetAxis ("LeftJoystickY" + (i+1).ToString());

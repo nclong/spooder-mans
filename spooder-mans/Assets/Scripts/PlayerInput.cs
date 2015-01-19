@@ -11,5 +11,6 @@ public class PlayerInput {
 	public bool hook;
 	public bool jump;
 	public bool sweep;
+    public bool inverted = false;
 	
 }

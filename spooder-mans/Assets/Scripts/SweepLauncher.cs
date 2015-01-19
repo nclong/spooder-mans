@@ -43,6 +43,7 @@ public class SweepLauncher : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+        transform.localPosition = Vector3.zero;
 
         if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
         {
@@ -56,6 +57,8 @@ public class SweepLauncher : MonoBehaviour
             attributes.HookTraveling = false;
             attributes.Jumping = false;
             theHook.SetActive( false );
+
+
             
 
         }

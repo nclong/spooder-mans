@@ -19,9 +19,13 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
-
+    public Animator anim;
+    public GameObject gameStateManagerObject;
     private int framesSwept = 0;
     private int framesSpawned = 0;
+    private PlayerInput playerInput;    
+    private GameStateManager gameStateManager;
+
 
 	//public AudioSource deathAudio;
 
@@ -29,10 +33,15 @@ public class CharacterAttributes : MonoBehaviour {
 	public SoundManager theSoundManager;
 	//public AudioSource hookLaunchAudio;
 
+    private PlayerInput playerInput;    private GameStateManager gameStateManager;
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
+
+        anim = GetComponent<Animator>();
+        playerInput = InputManager.PlayerInputs[playerNum];        
+		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
 	}
 	
 	// Update is called once per frame
@@ -99,6 +108,17 @@ public class CharacterAttributes : MonoBehaviour {
                 character.HookLaunched = false;
                 character.Hooked = false;
 			}
+
+            if( OnWall )
+            {
+                rigidbody2D.velocity = Vector2.zero;
+            }
+
+            if( character.OnWall )
+            {
+                collisionObject.rigidbody2D.velocity = Vector2.zero;
+            }
+
 		}
 		if (wall != null) 
 		{
@@ -111,6 +131,11 @@ public class CharacterAttributes : MonoBehaviour {
             HookLaunched = false;
 			Debug.Log("Hook Traveling False");
 			currentWall = wall;
+
+
+            anim.SetBool("Hooked", HookTraveling);
+            anim.SetBool("Jumped", Jumping);
+            anim.SetBool("Idle", OnWall);
 		}
 	}
 
@@ -119,6 +144,15 @@ public class CharacterAttributes : MonoBehaviour {
         if( transform.position.y > 9f )
         {
             transform.position = new Vector3( transform.position.x, 9f, 0f );
+        }
+
+        if (Mathf.Sign(transform.localScale.x) >= 0)
+        {
+            playerInput.inverted = false;
+        }
+        else
+        {
+            playerInput.inverted = true;
         }
     }
 
@@ -148,8 +182,6 @@ public class CharacterAttributes : MonoBehaviour {
 
     public void KillPlayer()
     {
-        transform.position = Spawner.transform.position;
-        rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y + Random.Range( -SpawnVariance, SpawnVariance ) );
         OnWall = false;
         Hooked = false;
         Jumping = false;
@@ -161,10 +193,22 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
+        //Decrease Stock
 		//play death sound
 		//deathAudio.Play ();
 		Debug.Log (playerNum);
 		soundManager.playDeathAudio (playerNum);
         //Decrease Stock
+        gameStateManager.LosePlayerLife( playerNum );
+
+        if( gameStateManager.playerStock[playerNum] > 0 )
+        {
+            transform.position = Spawner.transform.position;
+            rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y + Random.Range( -SpawnVariance, SpawnVariance ) );
+        }
+        else
+        {
+            Destroy( transform.gameObject );
+        }
     }
 }
