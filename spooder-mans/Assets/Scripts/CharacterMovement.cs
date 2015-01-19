@@ -5,6 +5,8 @@ public class CharacterMovement : MonoBehaviour {
 
 	public float playerSpeed;
 	public float verticalAccel;
+    public float maxHorizSpeed;
+    public float horizAccel;
 	public float max_jump_accel_frames;
 	public float jumpAccel;
 	public float jumpDegrade;
@@ -38,11 +40,21 @@ public class CharacterMovement : MonoBehaviour {
 			{
 				rigidbody2D.velocity = rigidbody2D.velocity.normalized * playerSpeed;
 			}
-			if( playerInput.leftJoystickY.IsWithin(0f, 0.01f) && !attributes.Hooked && !attributes.HookTraveling)
+			if( playerInput.leftJoystickY.IsWithin(0f, 0.001f) && !attributes.Hooked && !attributes.HookTraveling)
 			{
 				rigidbody2D.velocity = Vector2.zero;
 			}
 		}
+
+        if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
+        {
+            rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX * ( playerInput.inverted ? -1 : 1 ), 0f );
+
+            if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
+            {
+                rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
+            }
+        }
 
 
 
@@ -70,9 +82,9 @@ public class CharacterMovement : MonoBehaviour {
 			jumpReleased = false;
 			attributes.OnWall = false;
 
-            attributes.anim.SetBool("Idle", false);
-            attributes.anim.SetBool("Hooked", false);
-            attributes.anim.SetBool("Jumped", attributes.Jumping);
+            //attributes.anim.SetBool("Idle", false);
+            //attributes.anim.SetBool("Hooked", false);
+            //attributes.anim.SetBool("Jumped", attributes.Jumping);
 
             if( attributes.HookTraveling )
             {

@@ -62,11 +62,13 @@ public class SweepLauncher : MonoBehaviour
             }
             else if( currentFrames <= cumulativeActiveFrames )
             {
+                attributes.SweepingActive = true;
                 collider2D.enabled = true;
                 //More Animation Things
             }
             else if( currentFrames <= cumulativeCooldownFrames )
             {
+                attributes.SweepingActive = false;
                 collider2D.enabled = false;
                 //More Animation things or a stall
             }

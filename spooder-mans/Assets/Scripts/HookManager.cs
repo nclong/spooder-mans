@@ -59,25 +59,41 @@ public class HookManager : MonoBehaviour {
 				rigidbody2D.velocity = Vector2.zero;
 				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
 
-                attributes.anim.SetBool("Idle", false);
-                attributes.anim.SetBool("Jumped", false);
-                attributes.anim.SetBool("Hooked", attributes.HookTraveling);
+                //attributes.anim.SetBool("Idle", false);
+                //attributes.anim.SetBool("Jumped", false);
+                //attributes.anim.SetBool("Hooked", attributes.HookTraveling);
             }
 
 		}
 
-		if( character != null && collisionObject != transform.parent.gameObject && attributes.OnWall )
+		if( character != null && collisionObject != transform.parent.gameObject && attributes.OnWall && !character.newlySpawned )
 		{
-			rigidbody2D.velocity = dir * -hookSpeed;
-			character.Hooked = true;
-			collisionObject.rigidbody2D.velocity = dir * -playerSpeed;
+            if( character.SweepingActive )
+            {
+                attributes.HookLaunched = false;
+                transform.gameObject.SetActive( false );
+            }
+            else
+            {
+                rigidbody2D.velocity = dir * -hookSpeed;
+                character.Hooked = true;
+                collisionObject.rigidbody2D.velocity = dir * -playerSpeed; 
+            }
 
 		}
-        else if( character != null && collisionObject != transform.parent.gameObject && !attributes.OnWall )
+        else if( character != null && collisionObject != transform.parent.gameObject && !attributes.OnWall && !character.newlySpawned )
         {
-            transform.parent.rigidbody2D.velocity = dir * playerSpeed;
-            character.Hooked = true;
-            attributes.HookTraveling = true;
+            if( character.SweepingActive )
+            {
+                attributes.HookLaunched = false;
+                transform.gameObject.SetActive( false );
+            }
+            else
+            {
+                transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+                character.Hooked = true;
+                attributes.HookTraveling = true;
+            }
         }
         else if( character != null && collisionObject == transform.parent.gameObject )
         {
