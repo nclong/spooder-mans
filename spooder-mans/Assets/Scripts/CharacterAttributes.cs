@@ -33,7 +33,6 @@ public class CharacterAttributes : MonoBehaviour {
 	public SoundManager theSoundManager;
 	//public AudioSource hookLaunchAudio;
 
-    private PlayerInput playerInput;    private GameStateManager gameStateManager;
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
