@@ -42,6 +42,30 @@ public class CharacterMovement : MonoBehaviour {
 			{
 				rigidbody2D.velocity = Vector2.zero;
 			}
+
+            if (rigidbody2D.velocity.y < 0 )
+            {
+                attributes.anim.SetBool("Idle", false);
+                attributes.anim.SetBool("Up", false);
+                attributes.anim.SetBool("Stunned", false);
+                attributes.anim.SetBool("Down", true);
+            }
+            else if (rigidbody2D.velocity.y > 0)
+            {
+                attributes.anim.SetBool("Idle", false);
+                attributes.anim.SetBool("Down", false);
+                attributes.anim.SetBool("Stunned", false);
+
+                attributes.anim.SetBool("Up", true);
+            }
+            else if (rigidbody2D.velocity.y == 0)
+            {
+                attributes.anim.SetBool("Idle", true);
+                attributes.anim.SetBool("Down", false);
+                attributes.anim.SetBool("Stunned", false);
+                attributes.anim.SetBool("Up", false);
+            }
+
 		}
 
 
@@ -70,6 +94,9 @@ public class CharacterMovement : MonoBehaviour {
 			jumpReleased = false;
 			attributes.OnWall = false;
 
+            attributes.anim.SetBool("Stunned", false);
+            attributes.anim.SetBool("Up", false);
+            attributes.anim.SetBool("Down", false);
             attributes.anim.SetBool("Idle", false);
             attributes.anim.SetBool("Hooked", false);
             attributes.anim.SetBool("Jumped", attributes.Jumping);

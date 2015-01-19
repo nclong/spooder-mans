@@ -17,6 +17,7 @@ public class SweepLauncher : MonoBehaviour
     private int cumulativeActiveFrames;
     private int cumulativeCooldownFrames;
     private Vector3 startSweepPos;
+    private bool InAir = false;
 
 
 
@@ -38,6 +39,15 @@ public class SweepLauncher : MonoBehaviour
 
         if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
         {
+            if (attributes.Jumping || attributes.HookTraveling)
+            {
+                InAir = true;
+            }
+            else
+            {
+                InAir = false;
+            }
+
             attributes.Sweeping = true;
             startSweepPos = transform.position;
             transform.parent.rigidbody2D.velocity = Vector2.zero;
@@ -45,6 +55,8 @@ public class SweepLauncher : MonoBehaviour
             attributes.HookTraveling = false;
             attributes.Jumping = false;
             theHook.SetActive( false );
+
+            
 
 
             
@@ -58,16 +70,53 @@ public class SweepLauncher : MonoBehaviour
             if( currentFrames <= windUpFrames )
             {
                 collider2D.enabled = false;
-                //Animation Things
+
+                if (InAir)
+                {
+                    attributes.anim.SetBool("Jumped", false);
+                    attributes.anim.SetBool("AirWindup", true);
+                }
+                else
+                {
+                    attributes.anim.SetBool("Up", false);
+                    attributes.anim.SetBool("Down", false);
+                    attributes.anim.SetBool("Idle", false);
+                    attributes.anim.SetBool("Windup", true);
+                }
             }
             else if( currentFrames <= cumulativeActiveFrames )
             {
                 collider2D.enabled = true;
+
+                if (InAir)
+                {
+                    attributes.anim.SetBool("AirWindup", false);
+                    attributes.anim.SetBool("AirSweep", true);
+                }
+                else
+                {
+                    attributes.anim.SetBool("Up", false);
+                    attributes.anim.SetBool("Down", false);
+                    attributes.anim.SetBool("Windup", false);
+                    attributes.anim.SetBool("Sweep", true);
+                }
                 //More Animation Things
             }
             else if( currentFrames <= cumulativeCooldownFrames )
             {
                 collider2D.enabled = false;
+                if (InAir)
+                {
+                    attributes.anim.SetBool("AirSweep", false);
+                    attributes.anim.SetBool("AirCooldown", true);
+                }
+                else
+                {
+                    attributes.anim.SetBool("Up", false);
+                    attributes.anim.SetBool("Down", false);
+                    attributes.anim.SetBool("Sweep", false);
+                    attributes.anim.SetBool("Cooldown", true);
+                }
                 //More Animation things or a stall
             }
             else
@@ -75,6 +124,20 @@ public class SweepLauncher : MonoBehaviour
                 attributes.Sweeping = false;
                 currentFrames = 0;
                 collider2D.enabled = false;
+
+                if (InAir)
+                {
+                    attributes.anim.SetBool("Cooldown", false);
+                    attributes.anim.SetBool("Jumped", true);
+                }
+                else
+                {
+                    attributes.anim.SetBool("Up", false);
+                    attributes.anim.SetBool("Down", false);
+                    attributes.anim.SetBool("Cooldown", false);
+                    attributes.anim.SetBool("Idle", true);
+                }
+
             }
         }
 	}

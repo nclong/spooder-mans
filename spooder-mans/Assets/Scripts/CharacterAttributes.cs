@@ -19,7 +19,8 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
-public Animator anim;public GameObject gameStateManagerObject;
+    public Animator anim;
+    public GameObject gameStateManagerObject;
     private int framesSwept = 0;
     private int framesSpawned = 0;
     private PlayerInput playerInput;    private GameStateManager gameStateManager;
@@ -27,7 +28,10 @@ public Animator anim;public GameObject gameStateManagerObject;
 	void Start () {
 		OnWall = true;
         anim = GetComponent<Animator>();
-        playerInput = InputManager.PlayerInputs[playerNum];        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
+       // anim.SetBool("Idle", true);
+        playerInput = InputManager.PlayerInputs[playerNum];        
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -52,10 +56,16 @@ public Animator anim;public GameObject gameStateManagerObject;
         if( transform.position.y <= -10 )
         {
             KillPlayer();
+            anim.SetBool("Down", false);
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Jumped", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Hooked", false);
         }
 
         if( newlySpawned )
         {
+
             ++framesSpawned;
             if( framesSpawned > framesNewlySpawned)
             {
@@ -109,6 +119,11 @@ public Animator anim;public GameObject gameStateManagerObject;
 			currentWall = wall;
 
 
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("AirCooldown", false);
+            anim.SetBool("Cooldown", false);
             anim.SetBool("Hooked", HookTraveling);
             anim.SetBool("Jumped", Jumping);
             anim.SetBool("Idle", OnWall);
