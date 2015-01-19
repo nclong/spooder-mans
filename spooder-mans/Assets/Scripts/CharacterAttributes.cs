@@ -195,7 +195,6 @@ public class CharacterAttributes : MonoBehaviour {
         //Decrease Stock
 		//play death sound
 		//deathAudio.Play ();
-		Debug.Log (playerNum);
 		soundManager.playDeathAudio (playerNum);
         //Decrease Stock
         gameStateManager.LosePlayerLife( playerNum );

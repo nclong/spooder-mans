@@ -7,6 +7,12 @@ public class GameStateManager : MonoBehaviour {
     public int StartingLives;
     public int[] playerStock { get; private set; }
     public int playersAlive;
+
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	private bool victoryFound = false;
+
 	// Use this for initialization
 	void Start () {
         playerStock = new int[4];
@@ -15,7 +21,9 @@ public class GameStateManager : MonoBehaviour {
             playerStock[i] = StartingLives;
             playersAlive = 4;
         }
-	
+
+
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -26,13 +34,31 @@ public class GameStateManager : MonoBehaviour {
             if( playerStock[i] <= 0 )
             {
                 playersAlive--;
-            }
+
+				if( playersAlive == 1 )
+				{
+
+					//Victory Stuff
+					int victorIndex = -1;
+					for(int j = 0; j < 4;j++){
+						if(playerStock[j]!=0){
+							victorIndex = j;
+
+							break;
+						}
+					}
+					if(victoryFound == false)
+					{
+						Debug.Log("victor index " + victorIndex);
+						soundManager.playVictorAudio(victorIndex);
+						victoryFound = true;
+					}
+				}
+
+		    }
         }
 
-        if( playersAlive == 1 )
-        {
-            //Victory Stuff
-        }
+
 	}
 
     public void LosePlayerLife(int player)

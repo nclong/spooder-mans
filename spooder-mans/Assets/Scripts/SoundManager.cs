@@ -37,6 +37,12 @@ public class SoundManager : MonoBehaviour {
 	public AudioSource deathAudio3;
 	private AudioSource[] deathAudios;
 
+	//victory Audios
+	public AudioSource victorAudio0;
+	public AudioSource victorAudio1;
+	public AudioSource victorAudio2;
+	public AudioSource victorAudio3;
+	private AudioSource[] victorAudios;
 
 	// Use this for initialization
 	void Start () {
@@ -48,8 +54,8 @@ public class SoundManager : MonoBehaviour {
 
 
 		deathAudios = new AudioSource[]{deathAudio0,deathAudio2,deathAudio2,deathAudio3};
+		victorAudios = new AudioSource[]{victorAudio0,victorAudio1,victorAudio2,victorAudio3};
 	}
-	
 	// Update is called once per frame
 	void Update () {
 	
@@ -79,7 +85,11 @@ public class SoundManager : MonoBehaviour {
 
 	public void playDeathAudio(int player){
 		Debug.Log ("played death sound");
-		deathAudios [player].Play ();
+		deathAudios[player].Play ();
+	}
+
+	public void playVictorAudio(int player){
+		victorAudios [player].Play ();
 	}
 
 }
