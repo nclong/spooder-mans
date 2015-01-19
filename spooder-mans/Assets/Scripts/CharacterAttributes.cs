@@ -23,9 +23,16 @@ public class CharacterAttributes : MonoBehaviour {
     private int framesSwept = 0;
     private int framesSpawned = 0;
 
+	//public AudioSource deathAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	//public AudioSource hookLaunchAudio;
+
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -62,9 +69,18 @@ public class CharacterAttributes : MonoBehaviour {
                 framesSpawned = 0;
             }
         }
-	
-	}
 
+
+		//hook launched audio
+//		if(HookLaunched){
+//			hookLaunchAudio.Play ();
+//		}
+//		else{
+//			hookLaunchAudio.Stop ();
+//		}
+		
+	}
+	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
@@ -145,6 +161,10 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
+		//play death sound
+		//deathAudio.Play ();
+		Debug.Log (playerNum);
+		soundManager.playDeathAudio (playerNum);
         //Decrease Stock
     }
 }

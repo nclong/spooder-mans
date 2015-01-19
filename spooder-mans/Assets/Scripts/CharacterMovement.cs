@@ -20,13 +20,17 @@ public class CharacterMovement : MonoBehaviour {
 	private PlayerInput playerInput;
 
 	//public AudioSource jumpAudio;	
-	//public AudioSource grappleAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
 
 	// Use this for initialization
 	void Start () {
 		attributes = GetComponent<CharacterAttributes> ();
 		playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs [playerNum];
+
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -49,10 +53,11 @@ public class CharacterMovement : MonoBehaviour {
 		//Jumping
 		if (playerInput.jump || Input.GetKey (KeyCode.Space)) {
 
-            ////jump Audio
-            //if(attributes.OnWall){
-            //    jumpAudio.Play ();
-            //}
+            //jump Audio
+            if(attributes.OnWall){
+                //jumpAudio.Play ();
+				soundManager.playJumpAudio();
+            }
 
 
 			jumpPressed = true;		
@@ -90,15 +95,6 @@ public class CharacterMovement : MonoBehaviour {
 				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
 			}
 		}
-
-
-        ////hook audio
-        //if(attributes.HookTraveling){
-        //    grappleAudio.Play ();
-        //}
-        //else{
-        //    grappleAudio.Stop ();
-        //}
 
 	}
 //
