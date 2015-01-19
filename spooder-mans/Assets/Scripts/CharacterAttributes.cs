@@ -20,21 +20,80 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
+    public Animator anim;
+    public GameObject gameStateManagerObject;
+<<<<<<< .mine
     //public Animator anim;
     public GameObject gameStateManagerObject;
     public int framesBeforeRespawn;
+=======
+    public Animator anim;
+    public GameObject gameStateManagerObject;
+
+>>>>>>> .theirs
+    public int framesBeforeRespawn;
     private int framesSwept = 0;
     private int framesSpawned = 0;
-    private PlayerInput playerInput;    
+    private PlayerInput playerInput;
     private GameStateManager gameStateManager;
     private int framesSinceDeath = 0;
     private bool respawning = false;
+    private SoundManager soundManager;
+    public SoundManager theSoundManager;
+<<<<<<< .mine
+    private GameStateManager gameStateManager;
+    private int framesSinceDeath = 0;
+    private bool respawning = false;
+
+
+
+
+
+
+=======
+    private GameStateManager gameStateManager;
+
+
+	//public AudioSource deathAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	//public AudioSource hookLaunchAudio;
+
+>>>>>>> .theirs
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
-        //anim = GetComponent<Animator>();
+        playerInput = InputManager.PlayerInputs[playerNum];
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
+    }<<<<<<< .mine
         playerInput = InputManager.PlayerInputs[playerNum];        
         gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
+
+
+
+
+
+
+
+
+
+
+=======
+
+        anim = GetComponent<Animator>();
+<<<<<<< HEAD
+       // anim.SetBool("Idle", true);
+        playerInput = InputManager.PlayerInputs[playerNum];        
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+    }
+=======
+        playerInput = InputManager.PlayerInputs[playerNum];        
+		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+	}
+>>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
+>>>>>>> .theirs
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -59,10 +118,16 @@ public class CharacterAttributes : MonoBehaviour {
         if( transform.position.y <= -10 )
         {
             KillPlayer();
+            anim.SetBool("Down", false);
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Jumped", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Hooked", false);
         }
 
         if( newlySpawned )
         {
+
             ++framesSpawned;
             if( framesSpawned > framesNewlySpawned + framesBeforeRespawn)
             {
@@ -70,6 +135,7 @@ public class CharacterAttributes : MonoBehaviour {
                 framesSpawned = 0;
             }
         }
+<<<<<<< .mine
 
         if( respawning )
         {
@@ -87,9 +153,26 @@ public class CharacterAttributes : MonoBehaviour {
                 }
             }
         }
-	
+=======
+
+
+		//hook launched audio
+//		if(HookLaunched){
+//			hookLaunchAudio.Play ();
+//		}
+//		else{
+//			hookLaunchAudio.Stop ();
+//		}
+		
 	}
 
+
+
+
+
+
+>>>>>>> .theirs
+	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
@@ -133,10 +216,14 @@ public class CharacterAttributes : MonoBehaviour {
 			currentWall = wall;
 
 
-            //anim.SetBool("Hooked", HookTraveling);
-            //anim.SetBool("Jumped", Jumping);
-            //anim.SetBool("Idle", OnWall);
-		}
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("AirCooldown", false);
+            anim.SetBool("Cooldown", false);
+            anim.SetBool("Hooked", HookTraveling);
+            anim.SetBool("Jumped", Jumping);
+            anim.SetBool("Idle", OnWall);		}
 	}
 
     public void LateUpdate()
@@ -193,6 +280,11 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
+        //Decrease Stock
+		//play death sound
+		//deathAudio.Play ();
+		soundManager.playDeathAudio (playerNum);
+        //Decrease Stock
         gameStateManager.LosePlayerLife( playerNum );
 
         if( gameStateManager.playerStock[playerNum] > 0 )

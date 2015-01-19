@@ -18,6 +18,9 @@ public class GameStateManager : MonoBehaviour {
     private float currentCameraShake;
     private int framesShaking = 0;
     private bool shaking = false;
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	private bool victoryFound = false;
 	// Use this for initialization
 	void Start () {
         playerStock = new int[4];
@@ -26,8 +29,7 @@ public class GameStateManager : MonoBehaviour {
             playerStock[i] = StartingLives;
             playersAlive = 4;
         }
-        cameraStartingPos = new Vector3( 0f, 0f, -10f );
-	}
+        cameraStartingPos = new Vector3( 0f, 0f, -10f );		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -37,13 +39,31 @@ public class GameStateManager : MonoBehaviour {
             if( playerStock[i] <= 0 )
             {
                 playersAlive--;
-            }
+
+				if( playersAlive == 1 )
+				{
+
+					//Victory Stuff
+					int victorIndex = -1;
+					for(int j = 0; j < 4;j++){
+						if(playerStock[j]!=0){
+							victorIndex = j;
+
+							break;
+						}
+					}
+					if(victoryFound == false)
+					{
+						Debug.Log("victor index " + victorIndex);
+						soundManager.playVictorAudio(victorIndex);
+						victoryFound = true;
+					}
+				}
+
+		    }
         }
 
-        if( playersAlive == 1 )
-        {
-            //Victory Stuff
-        }
+
 
         if( shaking )
         {

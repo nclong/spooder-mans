@@ -22,13 +22,17 @@ public class CharacterMovement : MonoBehaviour {
 	private PlayerInput playerInput;
 
 	//public AudioSource jumpAudio;	
-	//public AudioSource grappleAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
 
 	// Use this for initialization
 	void Start () {
 		attributes = GetComponent<CharacterAttributes> ();
 		playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs [playerNum];
+
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -44,6 +48,30 @@ public class CharacterMovement : MonoBehaviour {
 			{
 				rigidbody2D.velocity = Vector2.zero;
 			}
+
+            if (rigidbody2D.velocity.y < 0 )
+            {
+                attributes.anim.SetBool("Idle", false);
+                attributes.anim.SetBool("Up", false);
+                attributes.anim.SetBool("Stunned", false);
+                attributes.anim.SetBool("Down", true);
+            }
+            else if (rigidbody2D.velocity.y > 0)
+            {
+                attributes.anim.SetBool("Idle", false);
+                attributes.anim.SetBool("Down", false);
+                attributes.anim.SetBool("Stunned", false);
+
+                attributes.anim.SetBool("Up", true);
+            }
+            else if (rigidbody2D.velocity.y == 0)
+            {
+                attributes.anim.SetBool("Idle", true);
+                attributes.anim.SetBool("Down", false);
+                attributes.anim.SetBool("Stunned", false);
+                attributes.anim.SetBool("Up", false);
+            }
+
 		}
 
         if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
@@ -61,10 +89,11 @@ public class CharacterMovement : MonoBehaviour {
 		//Jumping
 		if (playerInput.jump || Input.GetKey (KeyCode.Space)) {
 
-            ////jump Audio
-            //if(attributes.OnWall){
-            //    jumpAudio.Play ();
-            //}
+            //jump Audio
+            if(attributes.OnWall){
+                //jumpAudio.Play ();
+				soundManager.playJumpAudio();
+            }
 
 
 			jumpPressed = true;		
@@ -82,10 +111,12 @@ public class CharacterMovement : MonoBehaviour {
 			jumpReleased = false;
 			attributes.OnWall = false;
 
-            //attributes.anim.SetBool("Idle", false);
-            //attributes.anim.SetBool("Hooked", false);
-            //attributes.anim.SetBool("Jumped", attributes.Jumping);
-
+            attributes.anim.SetBool("Stunned", false);
+            attributes.anim.SetBool("Up", false);
+            attributes.anim.SetBool("Down", false);
+            attributes.anim.SetBool("Idle", false);
+            attributes.anim.SetBool("Hooked", false);
+            attributes.anim.SetBool("Jumped", attributes.Jumping);
             if( attributes.HookTraveling )
             {
                 theHook.SetActive( false );
@@ -107,15 +138,6 @@ public class CharacterMovement : MonoBehaviour {
 				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
 			}
 		}
-
-
-        ////hook audio
-        //if(attributes.HookTraveling){
-        //    grappleAudio.Play ();
-        //}
-        //else{
-        //    grappleAudio.Stop ();
-        //}
 
 	}
 //

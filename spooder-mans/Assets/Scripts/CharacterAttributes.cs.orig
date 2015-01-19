@@ -8,6 +8,7 @@ public class CharacterAttributes : MonoBehaviour {
 	public bool Jumping;
 	public bool Swept;
 	public bool Sweeping;
+    public bool SweepingActive;
 	public bool HookTraveling;
     public bool HookLaunched;
     public bool newlySpawned;
@@ -20,29 +21,52 @@ public class CharacterAttributes : MonoBehaviour {
     public float SpawnVariance;
     public GameObject theHook;
 <<<<<<< HEAD
+    //public Animator anim;
     public GameObject gameStateManagerObject;
-
-    private int framesSwept = 0;
-    private int framesSpawned = 0;
-    private GameStateManager gameStateManager;
+    public int framesBeforeRespawn;
 =======
     public Animator anim;
-
+    public GameObject gameStateManagerObject;
+>>>>>>> ec6968fe4361767c57cd7b0b527678338eb34976
     private int framesSwept = 0;
     private int framesSpawned = 0;
-    private PlayerInput playerInput;
->>>>>>> f00c64e85bdbfc4e07f9662a91774d7357f4e55e
+    private PlayerInput playerInput;    
+    private GameStateManager gameStateManager;
+<<<<<<< HEAD
+    private int framesSinceDeath = 0;
+    private bool respawning = false;
+	// Use this for initialization
+	void Start () {
+		OnWall = true;
+        //anim = GetComponent<Animator>();
+        playerInput = InputManager.PlayerInputs[playerNum];        
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
+=======
+
+
+	//public AudioSource deathAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	//public AudioSource hookLaunchAudio;
 
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
-<<<<<<< HEAD
-        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();
-=======
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
+
         anim = GetComponent<Animator>();
-        playerInput = InputManager.PlayerInputs[playerNum];
->>>>>>> f00c64e85bdbfc4e07f9662a91774d7357f4e55e
+<<<<<<< HEAD
+       // anim.SetBool("Idle", true);
+        playerInput = InputManager.PlayerInputs[playerNum];        
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+    }
+=======
+        playerInput = InputManager.PlayerInputs[playerNum];        
+		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
 	}
+>>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
+>>>>>>> ec6968fe4361767c57cd7b0b527678338eb34976
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -67,20 +91,57 @@ public class CharacterAttributes : MonoBehaviour {
         if( transform.position.y <= -10 )
         {
             KillPlayer();
+            anim.SetBool("Down", false);
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Jumped", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Hooked", false);
         }
 
         if( newlySpawned )
         {
+
             ++framesSpawned;
-            if( framesSpawned > framesNewlySpawned)
+            if( framesSpawned > framesNewlySpawned + framesBeforeRespawn)
             {
                 newlySpawned = false;
                 framesSpawned = 0;
             }
         }
+<<<<<<< HEAD
+
+        if( respawning )
+        {
+            ++framesSinceDeath;
+            if( framesSinceDeath >= framesBeforeRespawn )
+            {
+                renderer.enabled = true;
+                rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y/* + Random.Range( -SpawnVariance, SpawnVariance ) */);
+                framesSinceDeath = 0;
+                newlySpawned = true;
+                respawning = false;
+                foreach( Transform child in transform )
+                {
+                    child.gameObject.SetActive( true );
+                }
+            }
+        }
 	
 	}
+=======
+>>>>>>> ec6968fe4361767c57cd7b0b527678338eb34976
 
+
+		//hook launched audio
+//		if(HookLaunched){
+//			hookLaunchAudio.Play ();
+//		}
+//		else{
+//			hookLaunchAudio.Stop ();
+//		}
+		
+	}
+	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
@@ -123,9 +184,21 @@ public class CharacterAttributes : MonoBehaviour {
 			Debug.Log("Hook Traveling False");
 			currentWall = wall;
 
+
+<<<<<<< HEAD
+            //anim.SetBool("Hooked", HookTraveling);
+            //anim.SetBool("Jumped", Jumping);
+            //anim.SetBool("Idle", OnWall);
+=======
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("AirCooldown", false);
+            anim.SetBool("Cooldown", false);
             anim.SetBool("Hooked", HookTraveling);
             anim.SetBool("Jumped", Jumping);
             anim.SetBool("Idle", OnWall);
+>>>>>>> ec6968fe4361767c57cd7b0b527678338eb34976
 		}
 	}
 
@@ -183,12 +256,24 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
+        //Decrease Stock
+		//play death sound
+		//deathAudio.Play ();
+		soundManager.playDeathAudio (playerNum);
+        //Decrease Stock
         gameStateManager.LosePlayerLife( playerNum );
 
         if( gameStateManager.playerStock[playerNum] > 0 )
         {
+            respawning = true;
             transform.position = Spawner.transform.position;
-            rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y + Random.Range( -SpawnVariance, SpawnVariance ) );
+            renderer.enabled = false;
+            rigidbody2D.velocity = Vector2.zero;
+            newlySpawned = true;
+            foreach( Transform child in transform )
+            {
+                child.gameObject.SetActive( false );
+            }
         }
         else
         {
