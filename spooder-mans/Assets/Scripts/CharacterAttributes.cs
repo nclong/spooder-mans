@@ -39,9 +39,16 @@ public class CharacterAttributes : MonoBehaviour {
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 
         anim = GetComponent<Animator>();
+<<<<<<< HEAD
+       // anim.SetBool("Idle", true);
+        playerInput = InputManager.PlayerInputs[playerNum];        
+        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+    }
+=======
         playerInput = InputManager.PlayerInputs[playerNum];        
 		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
 	}
+>>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -66,10 +73,16 @@ public class CharacterAttributes : MonoBehaviour {
         if( transform.position.y <= -10 )
         {
             KillPlayer();
+            anim.SetBool("Down", false);
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Jumped", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Hooked", false);
         }
 
         if( newlySpawned )
         {
+
             ++framesSpawned;
             if( framesSpawned > framesNewlySpawned)
             {
@@ -132,6 +145,11 @@ public class CharacterAttributes : MonoBehaviour {
 			currentWall = wall;
 
 
+            anim.SetBool("Stunned", false);
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("AirCooldown", false);
+            anim.SetBool("Cooldown", false);
             anim.SetBool("Hooked", HookTraveling);
             anim.SetBool("Jumped", Jumping);
             anim.SetBool("Idle", OnWall);

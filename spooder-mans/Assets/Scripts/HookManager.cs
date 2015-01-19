@@ -72,6 +72,9 @@ public class HookManager : MonoBehaviour {
 				rigidbody2D.velocity = Vector2.zero;
 				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
 
+                attributes.anim.SetBool("Stunned", false);
+                attributes.anim.SetBool("Up", false);
+                attributes.anim.SetBool("Down", false);
                 attributes.anim.SetBool("Idle", false);
                 attributes.anim.SetBool("Jumped", false);
                 attributes.anim.SetBool("Hooked", attributes.HookTraveling);
