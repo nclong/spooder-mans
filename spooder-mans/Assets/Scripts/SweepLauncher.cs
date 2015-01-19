@@ -19,6 +19,11 @@ public class SweepLauncher : MonoBehaviour
     private Vector3 startSweepPos;
     private bool InAir = false;
 
+	//public AudioSource sweepAudio0;
+	//public AudioSource sweepAudio1;
+	//private AudioSource[] sweepAudios;
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
 
 
 	// Use this for initialization
@@ -30,6 +35,10 @@ public class SweepLauncher : MonoBehaviour
         collider2D.enabled = false;
         cumulativeActiveFrames = windUpFrames + activeFrames;
         cumulativeCooldownFrames = cumulativeActiveFrames + cooldownFrames;
+
+
+		//sweepAudios = new AudioSource[]{sweepAudio0 , sweepAudio1};
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -39,6 +48,7 @@ public class SweepLauncher : MonoBehaviour
 
         if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
         {
+<<<<<<< HEAD
             if (attributes.Jumping || attributes.HookTraveling)
             {
                 InAir = true;
@@ -47,6 +57,10 @@ public class SweepLauncher : MonoBehaviour
             {
                 InAir = false;
             }
+=======
+			//sweepAudios[Random.Range(0,2)].Play ();
+			soundManager.playSweepAudio(playerNum);
+>>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
 
             attributes.Sweeping = true;
             startSweepPos = transform.position;

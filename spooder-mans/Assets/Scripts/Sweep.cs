@@ -7,6 +7,8 @@ public class Sweep : MonoBehaviour
 	private bool InputPressed;
 	private bool InputReleased = true;
 
+	public AudioSource sweepAudio;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -16,8 +18,10 @@ public class Sweep : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		if (Input.GetButton ("Sweep1")) 
+		sweepAudio.Play ();
+		if (Input.GetButton ("Sweep1"))
 			{
+				
 				InputPressed = true;
 			} 
 		else 

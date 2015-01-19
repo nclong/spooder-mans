@@ -9,9 +9,18 @@ public class HookManager : MonoBehaviour {
 	private Vector3 dir;
 
 	public CharacterAttributes attributes;
+
+	public AudioSource clankAudio;
+	//public AudioSource hookAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+
+
 	// Use this for initialization
 	void Start () {
 		//line = (LineRenderer)renderer;
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +45,10 @@ public class HookManager : MonoBehaviour {
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
 		//line.SetPosition(0, transform.parent.position );
+
+
+		//hookAudio.Play ();
+		soundManager.playGrappleAudio ();
 	}
 
 	public void OnTriggerEnter2D(Collider2D collision)
@@ -88,6 +101,7 @@ public class HookManager : MonoBehaviour {
             transform.gameObject.SetActive( false );
         }
 
+		//if hooks collide each other
         if( otherHook != null )
         {
             CharacterAttributes otherCharacter = otherHook.transform.parent.gameObject.GetComponent<CharacterAttributes>();
@@ -95,6 +109,9 @@ public class HookManager : MonoBehaviour {
             transform.gameObject.SetActive( false );
             otherHook.transform.gameObject.SetActive( false );
             otherCharacter.HookLaunched = false;
+
+			//clankAudio.Play ();
+			soundManager.playClankAudio();
         }
 	}
 

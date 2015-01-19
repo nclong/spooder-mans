@@ -23,15 +23,32 @@ public class CharacterAttributes : MonoBehaviour {
     public GameObject gameStateManagerObject;
     private int framesSwept = 0;
     private int framesSpawned = 0;
-    private PlayerInput playerInput;    private GameStateManager gameStateManager;
+    private PlayerInput playerInput;    
+    private GameStateManager gameStateManager;
+
+
+	//public AudioSource deathAudio;
+
+	private SoundManager soundManager;
+	public SoundManager theSoundManager;
+	//public AudioSource hookLaunchAudio;
+
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
+		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
+
         anim = GetComponent<Animator>();
+<<<<<<< HEAD
        // anim.SetBool("Idle", true);
         playerInput = InputManager.PlayerInputs[playerNum];        
         gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
     }
+=======
+        playerInput = InputManager.PlayerInputs[playerNum];        
+		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
+	}
+>>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -73,9 +90,18 @@ public class CharacterAttributes : MonoBehaviour {
                 framesSpawned = 0;
             }
         }
-	
-	}
 
+
+		//hook launched audio
+//		if(HookLaunched){
+//			hookLaunchAudio.Play ();
+//		}
+//		else{
+//			hookLaunchAudio.Stop ();
+//		}
+		
+	}
+	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
 		GameObject collisionObject = collision.gameObject;
@@ -184,6 +210,12 @@ public class CharacterAttributes : MonoBehaviour {
         framesSpawned = 0;
         theHook.SetActive( false );
 
+        //Decrease Stock
+		//play death sound
+		//deathAudio.Play ();
+		Debug.Log (playerNum);
+		soundManager.playDeathAudio (playerNum);
+        //Decrease Stock
         gameStateManager.LosePlayerLife( playerNum );
 
         if( gameStateManager.playerStock[playerNum] > 0 )
