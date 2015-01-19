@@ -19,7 +19,7 @@ public class HookManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//line = (LineRenderer)renderer;
+		line = (LineRenderer)renderer;
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
@@ -28,9 +28,9 @@ public class HookManager : MonoBehaviour {
 		if( enabled )
 		{
 
-			//line.SetPosition(1, transform.position);
+			line.SetPosition(1, transform.position);
 		}
-		//line.SetPosition(0, transform.parent.position);
+		line.SetPosition(0, transform.parent.position);
 	}
 
 	public void Launch( Vector3 dir, float distance, float hookSpeed, float playerSpeed )
@@ -38,13 +38,23 @@ public class HookManager : MonoBehaviour {
 		this.hookSpeed = hookSpeed;
 		this.playerSpeed = playerSpeed;
         this.dir = dir;
-
+        
+        Debug.Log("Player Scale: " + transform.parent.localScale.x.ToString());
+        Debug.Log( "Hook Scale: " + transform.localScale.x.ToString() );
 		transform.eulerAngles = new Vector3( transform.eulerAngles.x, transform.eulerAngles.y, dir.Angle() );
-        transform.localPosition = new Vector2(this.dir.x * Mathf.Sign(transform.parent.localScale.x), this.dir.y);
-        Debug.DrawRay(transform.position, dir, Color.red, 2f);
+        WallAttributes wall = attributes.currentWall;
+        if( attributes.Jumping )
+        {
+            transform.localPosition = new Vector2( this.dir.x, this.dir.y );
+        }
+        else
+        {
+            transform.localPosition = new Vector2( this.dir.x * Mathf.Sign( transform.parent.localScale.x ), this.dir.y ); 
+        }
+        Debug.Log( "Local Position: " + transform.localPosition );
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
-		//line.SetPosition(0, transform.parent.position );
+		line.SetPosition(0, transform.parent.position );
 
 
 		//hookAudio.Play ();
@@ -53,6 +63,7 @@ public class HookManager : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D collision)
 	{
+        Debug.Log( "Web hit: " + collision.gameObject.ToString() );
 		GameObject collisionObject = collision.gameObject;
 		WallAttributes wall = (WallAttributes)collisionObject.GetComponent<WallAttributes>();
 		CharacterAttributes character = (CharacterAttributes)collisionObject.GetComponent<CharacterAttributes>();
@@ -112,8 +123,8 @@ public class HookManager : MonoBehaviour {
         }
         else if( character != null && collisionObject == transform.parent.gameObject )
         {
-            attributes.HookLaunched = false;
             transform.gameObject.SetActive( false );
+            attributes.HookLaunched = false;
         }
 
 		//if hooks collide each other

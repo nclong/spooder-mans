@@ -46,16 +46,21 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AnimationFlip.cs" />
      <Compile Include="Assets\Scripts\CharacterAttributes.cs" />
      <Compile Include="Assets\Scripts\CharacterMovement.cs" />
      <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\FireManager.cs" />
+     <Compile Include="Assets\Scripts\GameStateManager.cs" />
+     <Compile Include="Assets\Scripts\Gravity.cs" />
      <Compile Include="Assets\Scripts\HookLauncher.cs" />
      <Compile Include="Assets\Scripts\HookManager.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Sweep.cs" />
      <Compile Include="Assets\Scripts\SweepLauncher.cs" />
+     <Compile Include="Assets\Scripts\TitleStartup.cs" />
      <Compile Include="Assets\Scripts\WallAttributes.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>

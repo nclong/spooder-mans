@@ -62,29 +62,24 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public void playJumpAudio (){
-		Debug.Log ("played jump sound");
 		jumpAudio.Play ();
 	}
 
 	public void playSweepAudio (int player){
-		Debug.Log ("played sweep sound");
 		arrayOfPlayersSweep[player,Random.Range (0, 3)].Play ();
 		//sweepAudios [Random.Range (0, 3)].Play ();
 	}
 
 	public void playGrappleAudio(){
-		Debug.Log("played grapple sound");
 		grappleAudio0.Play ();
 	}	
 
 	public void playClankAudio(){
-		Debug.Log("played grapple sound");
 		clankAudio0.Play ();
 	}	
 
 
 	public void playDeathAudio(int player){
-		Debug.Log ("played death sound");
 		deathAudios[player].Play ();
 	}
 

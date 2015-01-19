@@ -47,7 +47,9 @@ public class HookLauncher : MonoBehaviour {
 			cursorDirection = new Vector2(playerInput.rightJoystickX * (playerInput.inverted ? -1 : 1), playerInput.rightJoystickY);
 			cursorDirection = cursorDirection.normalized;
 			hookCursor.transform.localPosition = cursorDirection * cursorDistance;
+            hookCursor.transform.eulerAngles = new Vector3( hookCursor.transform.eulerAngles.x, hookCursor.transform.eulerAngles.y, cursorDirection.Angle() );
 		}
+
         farMarkerRay = Physics2D.Raycast( hookCursor.transform.position.In2D(), cursorDirection, 100f,  markableLayer.value );
         if( farMarkerRay.collider != null )
         {

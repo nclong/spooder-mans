@@ -20,18 +20,9 @@ public class CharacterAttributes : MonoBehaviour {
     public Vector2 SpawnVector;
     public float SpawnVariance;
     public GameObject theHook;
+    public int framesBeforeRespawn;
     public Animator anim;
     public GameObject gameStateManagerObject;
-<<<<<<< .mine
-    //public Animator anim;
-    public GameObject gameStateManagerObject;
-    public int framesBeforeRespawn;
-=======
-    public Animator anim;
-    public GameObject gameStateManagerObject;
-
->>>>>>> .theirs
-    public int framesBeforeRespawn;
     private int framesSwept = 0;
     private int framesSpawned = 0;
     private PlayerInput playerInput;
@@ -40,60 +31,15 @@ public class CharacterAttributes : MonoBehaviour {
     private bool respawning = false;
     private SoundManager soundManager;
     public SoundManager theSoundManager;
-<<<<<<< .mine
-    private GameStateManager gameStateManager;
-    private int framesSinceDeath = 0;
-    private bool respawning = false;
 
-
-
-
-
-
-=======
-    private GameStateManager gameStateManager;
-
-
-	//public AudioSource deathAudio;
-
-	private SoundManager soundManager;
-	public SoundManager theSoundManager;
-	//public AudioSource hookLaunchAudio;
-
->>>>>>> .theirs
 	// Use this for initialization
 	void Start () {
 		OnWall = true;
         playerInput = InputManager.PlayerInputs[playerNum];
         gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
-    }<<<<<<< .mine
-        playerInput = InputManager.PlayerInputs[playerNum];        
-        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	}
-
-
-
-
-
-
-
-
-
-
-=======
-
         anim = GetComponent<Animator>();
-<<<<<<< HEAD
-       // anim.SetBool("Idle", true);
-        playerInput = InputManager.PlayerInputs[playerNum];        
-        gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
-    }
-=======
-        playerInput = InputManager.PlayerInputs[playerNum];        
-		gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();	
 	}
->>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
->>>>>>> .theirs
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -135,7 +81,6 @@ public class CharacterAttributes : MonoBehaviour {
                 framesSpawned = 0;
             }
         }
-<<<<<<< .mine
 
         if( respawning )
         {
@@ -153,7 +98,6 @@ public class CharacterAttributes : MonoBehaviour {
                 }
             }
         }
-=======
 
 
 		//hook launched audio
@@ -167,11 +111,6 @@ public class CharacterAttributes : MonoBehaviour {
 	}
 
 
-
-
-
-
->>>>>>> .theirs
 	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -206,13 +145,11 @@ public class CharacterAttributes : MonoBehaviour {
 		if (wall != null) 
 		{
 			OnWall = true;
-			Debug.Log ("OnWall True");
 			Jumping = false;
 			Hooked = false;
 			Swept = false;
 			HookTraveling = false;
             HookLaunched = false;
-			Debug.Log("Hook Traveling False");
 			currentWall = wall;
 
 

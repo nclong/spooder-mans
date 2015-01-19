@@ -32,4 +32,10 @@ public static class Constants {
 		return Mathf.Atan2( u.y, u.x) * Mathf.Rad2Deg;
 	}
 
+    public static float Angle( this Vector2 u )
+    {
+        u = u.normalized;
+        return Mathf.Atan2( u.y, u.x ) * Mathf.Rad2Deg;
+    }
+
 }

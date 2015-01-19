@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameStateManager : MonoBehaviour {
@@ -21,6 +22,19 @@ public class GameStateManager : MonoBehaviour {
 	private SoundManager soundManager;
 	public SoundManager theSoundManager;
 	private bool victoryFound = false;
+
+    public Text redStock;
+    public Text greenStock;
+    public Text purpleStock;
+    public Text yellowStock;
+
+    private int victorIndex = -1;
+
+    public Text redVictory;
+    public Text greenVictory;
+    public Text purpleVictory;
+    public Text yellowVictory;
+
 	// Use this for initialization
 	void Start () {
         playerStock = new int[4];
@@ -29,10 +43,15 @@ public class GameStateManager : MonoBehaviour {
             playerStock[i] = StartingLives;
             playersAlive = 4;
         }
-        cameraStartingPos = new Vector3( 0f, 0f, -10f );		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();	}
+        cameraStartingPos = new Vector3( 0f, 0f, -10f );		
+        soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        redStock.text = "x " + playerStock[0].ToString();
+        greenStock.text = "x " + playerStock[1].ToString();
+        purpleStock.text = "x " + playerStock[2].ToString();
+        yellowStock.text = "x " + playerStock[3].ToString();
         playersAlive = 4;
         for( int i = 0; i < 4; ++i )
         {
@@ -43,8 +62,6 @@ public class GameStateManager : MonoBehaviour {
 				if( playersAlive == 1 )
 				{
 
-					//Victory Stuff
-					int victorIndex = -1;
 					for(int j = 0; j < 4;j++){
 						if(playerStock[j]!=0){
 							victorIndex = j;
@@ -54,13 +71,42 @@ public class GameStateManager : MonoBehaviour {
 					}
 					if(victoryFound == false)
 					{
-						Debug.Log("victor index " + victorIndex);
+                        Debug.Log( victorIndex );
+                        switch( victorIndex )
+                        {
+                            case 0:
+                                redVictory.enabled = true;
+                                break;
+                            case 1:
+                                greenVictory.enabled = true;
+                                break;
+                            case 2:
+                                purpleVictory.enabled = true;
+                                break;
+                            case 3:
+                                yellowVictory.enabled = true;
+                                break;
+                            default:
+                                Debug.Log( "This shouldn't happen!" );
+                                break;
+                        }
 						soundManager.playVictorAudio(victorIndex);
 						victoryFound = true;
 					}
 				}
 
 		    }
+
+            if( victoryFound )
+            {
+
+                
+                if( Input.GetButton("StartOver"))
+                {
+                    Application.LoadLevel( "MasterScene" );
+                }
+
+            }
         }
 
 

@@ -74,15 +74,15 @@ public class CharacterMovement : MonoBehaviour {
 
 		}
 
-        if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
-        {
-            rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX * ( playerInput.inverted ? -1 : 1 ), 0f );
+        //if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
+        //{
+        //    rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX * ( playerInput.inverted ? -1 : 1 ), 0f );
 
-            if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
-            {
-                rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
-            }
-        }
+        //    if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
+        //    {
+        //        rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
+        //    }
+        //}
 
 
 

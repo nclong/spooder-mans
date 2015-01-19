@@ -10,11 +10,13 @@ public class InputManager : MonoBehaviour {
 		PlayerInputs = new PlayerInput[4];
 		PlayerInputs [0] = new PlayerInput ();
         PlayerInputs[1] = new PlayerInput();
+        PlayerInputs[2] = new PlayerInput();
+        PlayerInputs[3] = new PlayerInput();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		for( int i = 0; i < 1; ++i )
+		for( int i = 0; i < 4; ++i )
 		{
 			PlayerInputs[i].leftJoystickX = Input.GetAxis ("LeftJoystickX" + (i+1).ToString());
 			PlayerInputs[i].leftJoystickY = Input.GetAxis ("LeftJoystickY" + (i+1).ToString());

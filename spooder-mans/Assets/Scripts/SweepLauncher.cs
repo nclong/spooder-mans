@@ -48,7 +48,6 @@ public class SweepLauncher : MonoBehaviour
 
         if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
         {
-<<<<<<< HEAD
             if (attributes.Jumping || attributes.HookTraveling)
             {
                 InAir = true;
@@ -57,10 +56,8 @@ public class SweepLauncher : MonoBehaviour
             {
                 InAir = false;
             }
-=======
 			//sweepAudios[Random.Range(0,2)].Play ();
 			soundManager.playSweepAudio(playerNum);
->>>>>>> 93312e8a5f318f0be5976c38167b1dc3d72aaa14
 
             attributes.Sweeping = true;
             startSweepPos = transform.position;
@@ -165,7 +162,6 @@ public class SweepLauncher : MonoBehaviour
         CharacterAttributes character = CollisionObject.GetComponent<CharacterAttributes>();
 		if (character != null && character != attributes ) 
 		{
-            Debug.Log( "Sweeping Character" );
             CollisionObject.rigidbody2D.isKinematic = true;
             CollisionObject.collider2D.isTrigger = true;
 

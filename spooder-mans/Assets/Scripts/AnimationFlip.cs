@@ -37,18 +37,19 @@ public class AnimationFlip : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collission)
     {
-        Debug.Log("Wall Collision");
+
         WallAttributes wall = (WallAttributes)collission.gameObject.GetComponent<WallAttributes>();
 
-        if (wall.WhichWall == "Left")
+        if( wall != null )
         {
-            transform.localScale = new Vector2(3, transform.localScale.y);
-            Debug.Log("Left");
-        }
-        else if (wall.WhichWall == "Right")
-        {
-            transform.localScale = new Vector2(-3, transform.localScale.y);
-            Debug.Log("Right");
+            if( wall.WhichWall == "Left" )
+            {
+                transform.localScale = new Vector2( 3, transform.localScale.y );
+            }
+            else if( wall.WhichWall == "Right" )
+            {
+                transform.localScale = new Vector2( -3, transform.localScale.y );
+            } 
         }
 
     }
