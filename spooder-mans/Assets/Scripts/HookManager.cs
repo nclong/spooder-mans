@@ -19,18 +19,17 @@ public class HookManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		line = (LineRenderer)renderer;
+		//line = (LineRenderer)renderer;
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if( enabled )
-		{
-
-			line.SetPosition(1, transform.position);
-		}
-		line.SetPosition(0, transform.parent.position);
+	void FixedUpdate () {
+        if( Mathf.Abs( transform.position.x ) > 15)
+        {
+            attributes.HookLaunched = false;
+            transform.gameObject.SetActive( false );
+        }
 	}
 
 	public void Launch( Vector3 dir, float distance, float hookSpeed, float playerSpeed )
@@ -43,18 +42,19 @@ public class HookManager : MonoBehaviour {
         Debug.Log( "Hook Scale: " + transform.localScale.x.ToString() );
 		transform.eulerAngles = new Vector3( transform.eulerAngles.x, transform.eulerAngles.y, dir.Angle() );
         WallAttributes wall = attributes.currentWall;
-        if( attributes.Jumping )
-        {
-            transform.localPosition = new Vector2( this.dir.x, this.dir.y );
-        }
-        else
-        {
-            transform.localPosition = new Vector2( this.dir.x * Mathf.Sign( transform.parent.localScale.x ), this.dir.y ); 
-        }
+        //if( attributes.Jumping )
+        //{
+        //    transform.localPosition = new Vector2( this.dir.x, this.dir.y );
+        //}
+        //else
+        //{
+        //    transform.localPosition = new Vector2( this.dir.x * Mathf.Sign( transform.parent.localScale.x ), this.dir.y ); 
+        //}
+        transform.localPosition = new Vector2( this.dir.x * Mathf.Sign( transform.parent.localScale.x ), this.dir.y ); 
         Debug.Log( "Local Position: " + transform.localPosition );
 		transform.gameObject.SetActive(true);
 		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
-		line.SetPosition(0, transform.parent.position );
+        //line.SetPosition(0, transform.parent.position );
 
 
 		//hookAudio.Play ();

@@ -28,6 +28,10 @@ public class AnimationFlip : MonoBehaviour {
         if (changeDirection)
         {
             transform.localScale = new Vector2(3 * Mathf.Sign(rigidbody2D.velocity.x), transform.localScale.y);
+            foreach( Transform child in transform)
+            {
+                child.localScale = new Vector3( Mathf.Abs(child.localScale.x) * Mathf.Sign(rigidbody2D.velocity.x), child.localScale.y );
+            }
             float sign = Mathf.Sign(transform.localScale.x);
         }
 
@@ -52,10 +56,18 @@ public class AnimationFlip : MonoBehaviour {
             if( wall.WhichWall == "Left" )
             {
                 transform.localScale = new Vector2( 3, transform.localScale.y );
+                foreach( Transform child in transform )
+                {
+                    child.localScale = new Vector3( Mathf.Abs( child.localScale.x ) , child.localScale.y );
+                }
             }
             else if( wall.WhichWall == "Right" )
             {
                 transform.localScale = new Vector2( -3, transform.localScale.y );
+                foreach( Transform child in transform )
+                {
+                    child.localScale = new Vector3( Mathf.Abs( child.localScale.x ) * -1, child.localScale.y );
+                }
             } 
         }
 

@@ -24,6 +24,7 @@ public class SweepLauncher : MonoBehaviour
 	//private AudioSource[] sweepAudios;
 	private SoundManager soundManager;
 	public SoundManager theSoundManager;
+    private bool inAirUsed;
 
 
 	// Use this for initialization
@@ -46,11 +47,12 @@ public class SweepLauncher : MonoBehaviour
 	{
         transform.localPosition = Vector3.zero;
 
-        if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked )
+        if( playerInput.sweep && !attributes.Sweeping && !attributes.Hooked && !inAirUsed )
         {
             if (attributes.Jumping || attributes.HookTraveling)
             {
                 InAir = true;
+                inAirUsed = true;
             }
             else
             {
@@ -72,6 +74,13 @@ public class SweepLauncher : MonoBehaviour
 
             
 
+        }
+        else
+        {
+            if ( attributes.Jumping || attributes.HookTraveling || attributes.OnWall || attributes.Hooked || attributes.HookLaunched || attributes.newlySpawned)
+            {
+                inAirUsed = false;
+            }
         }
 
         if( attributes.Sweeping )

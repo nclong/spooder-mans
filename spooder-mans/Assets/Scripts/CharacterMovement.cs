@@ -74,15 +74,15 @@ public class CharacterMovement : MonoBehaviour {
 
 		}
 
-        //if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
-        //{
-        //    rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX * ( playerInput.inverted ? -1 : 1 ), 0f );
+        if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
+        {
+            rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX , 0f );
 
-        //    if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
-        //    {
-        //        rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
-        //    }
-        //}
+            if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
+            {
+                rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
+            }
+        }
 
 
 
@@ -134,7 +134,14 @@ public class CharacterMovement : MonoBehaviour {
 			if( framesAccelerating <= max_jump_accel_frames )
 			{
 				Vector2 jump_vector;
-				jump_vector = transform.position.x > 0 ? right_wall_jump_vector : left_wall_jump_vector;
+			    if( playerInput.leftJoystickX != 0f )
+                {
+                    jump_vector = new Vector2( rigidbody2D.velocity.x, 1 );
+                }
+                else
+                {
+                    jump_vector = new Vector2( 0f, 1f );
+                }
 				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
 			}
 		}

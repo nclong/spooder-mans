@@ -11,7 +11,11 @@ public class HookLauncher : MonoBehaviour {
 	public float maxChainDistance;
     public float farMarkerOffset;
     public LayerMask markableLayer;
-	
+
+    public float rotationAcceleration;
+    public float rotationMaxSpeed;
+	public float rotationZeroThreshold;
+
 	private bool inputReceived;
 	private bool inputReleased = true;
 	private HookManager hookManager;
@@ -21,14 +25,19 @@ public class HookLauncher : MonoBehaviour {
 	private int playerNum;
     private GameObject farMarker;
     private RaycastHit2D farMarkerRay;
-    private Vector2 currentAngle;
-    private Vector2 stickAngle;
+    private float currentAngle;
+    private float stickAngle;
+    private float actualMaxRotationSpeed;
+    private float rotationSpeed;
+    private bool rotateClockwise = false;
 	// Use this for initialization
 	void Start () {
+        attributes = GetComponent<CharacterAttributes>();
 		theHook.SetActive(true);
 		hookManager = (HookManager)theHook.GetComponent<HookManager>();
+        hookManager.attributes = attributes;
 		theHook.SetActive(false);
-		attributes = GetComponent<CharacterAttributes> ();
+		
 		cursorDirection = new Vector2 (1f, 0f);
         playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs [playerNum];
@@ -43,13 +52,109 @@ public class HookLauncher : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (!playerInput.rightJoystickX.IsWithin (0f, 0.0001f) && !playerInput.rightJoystickY.IsWithin (0f, 0.0001f)) {
+		if (playerInput.rightJoystickX != 0f && playerInput.rightJoystickY != 0f ) {
 
-			cursorDirection = new Vector2(playerInput.rightJoystickX * (playerInput.inverted ? -1 : 1), playerInput.rightJoystickY);
-			cursorDirection = cursorDirection.normalized;
-			hookCursor.transform.localPosition = cursorDirection * cursorDistance;
-            hookCursor.transform.eulerAngles = new Vector3( hookCursor.transform.eulerAngles.x, hookCursor.transform.eulerAngles.y, cursorDirection.Angle() );
-		}
+            stickAngle = Mathf.Atan2( playerInput.rightJoystickY, playerInput.rightJoystickX ) * Mathf.Rad2Deg;
+            actualMaxRotationSpeed = rotationMaxSpeed * new Vector2( playerInput.rightJoystickX, playerInput.rightJoystickY ).magnitude;
+            rotationSpeed += rotationAcceleration * new Vector2( playerInput.rightJoystickX, playerInput.rightJoystickY ).magnitude;
+            if( rotationSpeed > actualMaxRotationSpeed )
+            {
+                rotationSpeed = actualMaxRotationSpeed;
+            }
+
+            if( stickAngle == 0f )
+            {
+                stickAngle = 360f;
+            }
+
+            if( currentAngle == 0f )
+            {
+                currentAngle = 360f;
+            }
+
+            if( stickAngle > currentAngle )
+            {
+                if( stickAngle - currentAngle >= 180 )
+                {
+                    rotateClockwise = true;
+                }
+                else
+                {
+                    rotateClockwise = false;
+                }
+            }
+            else
+            {
+                if( currentAngle - stickAngle >= 180 )
+                {
+                    rotateClockwise = false;
+                }
+                else
+                {
+                    rotateClockwise = true;
+                }
+            }
+
+            if( currentAngle > 270 && ((360 - currentAngle) + stickAngle) < rotationSpeed )
+            {
+                currentAngle = stickAngle;
+            }
+            else if( stickAngle > 270 && ((360 - stickAngle) + currentAngle) < rotationSpeed )
+            {
+                currentAngle = stickAngle;
+            }
+            else
+            {
+                if( rotateClockwise )
+                {
+                    float targetAngle = currentAngle - rotationSpeed;
+                    if( rotationSpeed < 0 )
+                    {
+                        rotationSpeed += 360f;
+                    }
+                    if( targetAngle < stickAngle)
+                    {
+                        currentAngle = stickAngle;
+                    }
+                    else
+                    {
+                        currentAngle = targetAngle;
+                    }
+                }
+                else
+                {
+                    float targetAngle = currentAngle + rotationSpeed;
+                    if( rotationSpeed > 360 )
+                    {
+                        rotationSpeed -= 360f;
+                    }
+                    if( targetAngle > stickAngle )
+                    {
+                        currentAngle = stickAngle;
+                    }
+                    else
+                    {
+                        currentAngle = targetAngle;
+                    }
+                }
+            }
+
+            if( Mathf.Abs(stickAngle - currentAngle) <= rotationZeroThreshold )
+            {
+                currentAngle = stickAngle;
+            }
+
+            cursorDirection = currentAngle.ToVector2();
+            cursorDirection = new Vector2( cursorDirection.x * ( playerInput.inverted ? -1 : 1 ), cursorDirection.y ).normalized;
+            hookCursor.transform.localPosition = cursorDirection * cursorDistance;
+            hookCursor.transform.eulerAngles = new Vector3( hookCursor.transform.eulerAngles.x, hookCursor.transform.eulerAngles.y, currentAngle );
+
+        }
+        else
+        {
+            actualMaxRotationSpeed = 0f;
+            rotationSpeed = 0f;
+        }
 
         farMarkerRay = Physics2D.Raycast( hookCursor.transform.position.In2D(), new Vector2(cursorDirection.x * (playerInput.inverted ? -1 : 1), cursorDirection.y), 100f,  markableLayer.value );
         if( farMarkerRay.collider != null )
@@ -83,7 +188,7 @@ public class HookLauncher : MonoBehaviour {
 			inputReceived = false;
 		}
 
-		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.Swept && !attributes.Sweeping && !attributes.newlySpawned)
+		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.HookLaunched && !attributes.Swept && !attributes.Sweeping && !attributes.newlySpawned)
 		{
             rigidbody2D.velocity = Vector2.zero;
 			Vector3 hookDirection = (hookCursor.transform.position - transform.position);

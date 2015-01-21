@@ -38,4 +38,9 @@ public static class Constants {
         return Mathf.Atan2( u.y, u.x ) * Mathf.Rad2Deg;
     }
 
+    public static Vector2 ToVector2( this float angle )
+    {
+        return new Vector2( Mathf.Cos( angle * Mathf.Deg2Rad ), Mathf.Sin( angle * Mathf.Deg2Rad ) );
+    }
+
 }

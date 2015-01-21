@@ -31,6 +31,7 @@ public class CharacterAttributes : MonoBehaviour {
     private bool respawning = false;
     private SoundManager soundManager;
     public SoundManager theSoundManager;
+    private LineRenderer line;
 
 	// Use this for initialization
 	void Start () {
@@ -39,10 +40,23 @@ public class CharacterAttributes : MonoBehaviour {
         gameStateManager = gameStateManagerObject.GetComponent<GameStateManager>();
 		soundManager = (SoundManager)theSoundManager.GetComponent<SoundManager>();
         anim = GetComponent<Animator>();
+        line = GetComponent<LineRenderer>();
+        line.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        if( theHook.activeSelf )
+        {
+            line.enabled = true;
+            line.SetPosition( 0, transform.position );
+            line.SetPosition( 1, theHook.transform.position );
+        }
+        else
+        {
+            line.enabled = false;
+        }
+        
         if( Swept )
         {
             theHook.SetActive( false );
@@ -95,7 +109,10 @@ public class CharacterAttributes : MonoBehaviour {
                 respawning = false;
                 foreach( Transform child in transform )
                 {
-                    child.gameObject.SetActive( true );
+                    if( child != theHook )
+                    {
+                        child.gameObject.SetActive( true ); 
+                    }
                 }
             }
         }
@@ -108,6 +125,23 @@ public class CharacterAttributes : MonoBehaviour {
 //		else{
 //			hookLaunchAudio.Stop ();
 //		}
+
+        if( transform.position.y > 9f )
+        {
+            transform.position = new Vector3( transform.position.x, 9f, 0f );
+        }
+
+        if( transform.localScale.x != 0 )
+        {
+            if( Mathf.Sign( transform.localScale.x ) > 0 )
+            {
+                playerInput.inverted = false;
+            }
+            else
+            {
+                playerInput.inverted = true;
+            }
+        }
 		
 	}
 
@@ -183,28 +217,33 @@ public class CharacterAttributes : MonoBehaviour {
             anim.SetBool("Down", false);
             anim.SetBool("AirCooldown", false);
             anim.SetBool("Cooldown", false);
-            anim.SetBool("Hooked", HookTraveling);
-            anim.SetBool("Jumped", Jumping);
+            anim.SetBool( "Hooked", HookTraveling );
+            anim.SetBool( "Jumped", Jumping );
+            //anim.SetBool( "Hooked", false );
+            //anim.SetBool( "Jumped", false );
             anim.SetBool("Idle", OnWall);		
         }
 	}
 
-    public void LateUpdate()
-    {
-        if( transform.position.y > 9f )
-        {
-            transform.position = new Vector3( transform.position.x, 9f, 0f );
-        }
+    //public void LateUpdate()
+    //{
+    //    if( transform.position.y > 9f )
+    //    {
+    //        transform.position = new Vector3( transform.position.x, 9f, 0f );
+    //    }
 
-        if (Mathf.Sign(transform.localScale.x) >= 0)
-        {
-            playerInput.inverted = false;
-        }
-        else
-        {
-            playerInput.inverted = true;
-        }
-    }
+    //    if( transform.localScale.x != 0 )
+    //    {
+    //        if( Mathf.Sign( transform.localScale.x ) > 0 )
+    //        {
+    //            playerInput.inverted = false;
+    //        }
+    //        else
+    //        {
+    //            playerInput.inverted = true;
+    //        } 
+    //    }
+    //}
 
 //	public void OnCollisionStay2D(Collision2D collision)
 //	{
@@ -232,6 +271,10 @@ public class CharacterAttributes : MonoBehaviour {
 
     public void KillPlayer()
     {
+        foreach( Transform child in transform )
+        {
+            child.gameObject.SetActive( false );
+        }
         OnWall = false;
         Hooked = false;
         Jumping = false;
@@ -258,10 +301,7 @@ public class CharacterAttributes : MonoBehaviour {
             renderer.enabled = false;
             rigidbody2D.velocity = Vector2.zero;
             newlySpawned = true;
-            foreach( Transform child in transform )
-            {
-                child.gameObject.SetActive( false );
-            }
+            
         }
         else
         {
