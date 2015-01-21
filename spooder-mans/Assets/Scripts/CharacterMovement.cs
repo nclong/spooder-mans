@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour {
 	public float verticalAccel;
     public float maxHorizSpeed;
     public float horizAccel;
-	public float max_jump_accel_frames;
+	public int max_jump_accel_frames;
 	public float jumpAccel;
 	public float jumpDegrade;
 	public Vector2 left_wall_jump_vector;
@@ -129,40 +129,43 @@ public class CharacterMovement : MonoBehaviour {
 
 
 		if (attributes.Jumping) {
-			float scale = 1f - (float)(++framesAccelerating) / (float) max_jump_accel_frames;
+            if( jumpPressed )
+            {
+                ++framesAccelerating;
+            }
+            else
+            {
+                framesAccelerating = max_jump_accel_frames + 1;
+            }
+			float scale = 1f - (float)(framesAccelerating) / (float) max_jump_accel_frames;
 			float powerScale = Mathf.Pow(scale, jumpDegrade);
 			if( framesAccelerating <= max_jump_accel_frames )
 			{
 				Vector2 jump_vector;
-			    if( playerInput.leftJoystickX != 0f )
+                if( attributes.currentWall == null )
                 {
-                    jump_vector = new Vector2( rigidbody2D.velocity.x, 1 );
+                    if( playerInput.leftJoystickX != 0f )
+                    {
+                        jump_vector = new Vector2( playerInput.leftJoystickX / Mathf.Abs( playerInput.leftJoystickX ), 1 );
+                    }
+                    else
+                    {
+                        jump_vector = new Vector2( 0f, 1f );
+                    } 
+                }
+                else if( attributes.currentWall.WhichWall == "Left" )
+                {
+                    jump_vector = right_wall_jump_vector;
+                    jump_vector = left_wall_jump_vector;
                 }
                 else
                 {
-                    jump_vector = new Vector2( 0f, 1f );
+                    jump_vector = right_wall_jump_vector;
                 }
-				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
+
+				rigidbody2D.velocity += jump_vector * jumpAccel * powerScale;
 			}
 		}
 
 	}
-//
-//	void OnTriggerEnter2D (Collider2D other){
-//		Debug.Log ("collided");
-//		if(other.tag == "WallLeft"){
-//			jump_vector = new Vector2(1,1);
-//			rigidbody2D.velocity = new Vector2(0,0);
-//			rigidbody2D.gravityScale = 0;
-//			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
-//
-//		}
-//		if(other.tag == "WallRight"){
-//			jump_vector = new Vector2(-1,1);
-//			rigidbody2D.velocity = new Vector2(0,0);
-//			rigidbody2D.gravityScale = 0;
-//			Debug.Log ("Set grav to 0, gravity = " + rigidbody2D.gravityScale);
-//			
-//		}
-//	}
 }
