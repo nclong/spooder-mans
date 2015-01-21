@@ -19,7 +19,11 @@ public class AnimationFlip : MonoBehaviour {
 
     void FixedUpdate()
     {
-        bool changeDirection = Mathf.Sign(LastX) != Mathf.Sign(rigidbody2D.velocity.x);
+        bool changeDirection = false;
+        if( LastX != 0 && rigidbody.velocity.x != 0 )
+        {
+            changeDirection = Mathf.Sign( LastX ) != Mathf.Sign( rigidbody2D.velocity.x ); 
+        }
 
         if (changeDirection)
         {
@@ -28,7 +32,10 @@ public class AnimationFlip : MonoBehaviour {
         }
 
         PrevOnWall = attributes.OnWall;
-        LastX = rigidbody2D.velocity.x;
+        if( LastX != 0 && rigidbody.velocity.x != 0 )
+        {
+            LastX = rigidbody2D.velocity.x;
+        }
 
         // Hook is also being flipped at the same time
         // resulting in the hook being flipped twice

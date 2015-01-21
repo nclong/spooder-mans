@@ -45,6 +45,7 @@ public class CharacterAttributes : MonoBehaviour {
 	void FixedUpdate () {
         if( Swept )
         {
+            theHook.SetActive( false );
             framesSwept++;
             if( framesSwept <= SweepStunFrames )
             {
@@ -129,16 +130,36 @@ public class CharacterAttributes : MonoBehaviour {
                 character.HookTraveling = false;
                 character.HookLaunched = false;
                 character.Hooked = false;
+                theHook.SetActive( false );
+                character.theHook.SetActive( false );
 			}
 
             if( OnWall )
             {
                 rigidbody2D.velocity = Vector2.zero;
+                Hooked = false;
+                HookTraveling = false;
+                HookLaunched = false;
+
+                character.HookTraveling = false;
+                character.HookLaunched = false;
+                character.Hooked = false;
+                theHook.SetActive( false );
+                character.theHook.SetActive( false );
+
             }
 
             if( character.OnWall )
             {
                 collisionObject.rigidbody2D.velocity = Vector2.zero;
+                Hooked = false;
+                HookTraveling = false;
+                HookLaunched = false;
+                character.HookTraveling = false;
+                character.HookLaunched = false;
+                character.Hooked = false;
+                theHook.SetActive( false );
+                character.theHook.SetActive( false );
             }
 
 		}
@@ -148,9 +169,13 @@ public class CharacterAttributes : MonoBehaviour {
 			Jumping = false;
 			Hooked = false;
 			Swept = false;
+            Sweeping = false;
+            SweepingActive = false;
 			HookTraveling = false;
             HookLaunched = false;
 			currentWall = wall;
+
+            theHook.SetActive( false );
 
 
             anim.SetBool("Stunned", false);
@@ -160,7 +185,8 @@ public class CharacterAttributes : MonoBehaviour {
             anim.SetBool("Cooldown", false);
             anim.SetBool("Hooked", HookTraveling);
             anim.SetBool("Jumped", Jumping);
-            anim.SetBool("Idle", OnWall);		}
+            anim.SetBool("Idle", OnWall);		
+        }
 	}
 
     public void LateUpdate()
@@ -211,6 +237,7 @@ public class CharacterAttributes : MonoBehaviour {
         Jumping = false;
         Swept = false;
         Sweeping = false;
+        SweepingActive = false;
         HookTraveling = false;
         HookLaunched = false;
         newlySpawned = true;

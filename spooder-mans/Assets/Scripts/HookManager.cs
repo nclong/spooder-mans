@@ -74,6 +74,7 @@ public class HookManager : MonoBehaviour {
 			if( wall == attributes.currentWall)
 			{
 				transform.gameObject.SetActive(false);
+                attributes.HookLaunched = false;
 			}
 			else
 			{
@@ -92,8 +93,11 @@ public class HookManager : MonoBehaviour {
 
 		}
 
+        //Hook its a character while hook launcher is on wall and target is not newly spawned
 		if( character != null && collisionObject != transform.parent.gameObject && attributes.OnWall && !character.newlySpawned )
 		{
+            character.OnWall = false;
+            //Destroys Hook if hook target is sweeping
             if( character.SweepingActive )
             {
                 attributes.HookLaunched = false;
@@ -103,6 +107,10 @@ public class HookManager : MonoBehaviour {
             {
                 rigidbody2D.velocity = dir * -hookSpeed;
                 character.Hooked = true;
+                character.HookTraveling = false;
+                character.Jumping = false;
+                character.Sweeping = false;
+                character.Swept = false;
                 collisionObject.rigidbody2D.velocity = dir * -playerSpeed; 
             }
 
@@ -118,6 +126,10 @@ public class HookManager : MonoBehaviour {
             {
                 transform.parent.rigidbody2D.velocity = dir * playerSpeed;
                 character.Hooked = true;
+                character.HookTraveling = false;
+                character.Jumping = false;
+                character.Sweeping = false;
+                character.Swept = false;
                 attributes.HookTraveling = true;
             }
         }

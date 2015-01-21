@@ -9,6 +9,7 @@ public class HookLauncher : MonoBehaviour {
 	public float hookLaunchSpeed;
 	public float playerSpeed;
 	public float maxChainDistance;
+    public float farMarkerOffset;
     public LayerMask markableLayer;
 	
 	private bool inputReceived;
@@ -20,8 +21,8 @@ public class HookLauncher : MonoBehaviour {
 	private int playerNum;
     private GameObject farMarker;
     private RaycastHit2D farMarkerRay;
-
-	private Vector2 mousePosition;
+    private Vector2 currentAngle;
+    private Vector2 stickAngle;
 	// Use this for initialization
 	void Start () {
 		theHook.SetActive(true);
@@ -50,7 +51,7 @@ public class HookLauncher : MonoBehaviour {
             hookCursor.transform.eulerAngles = new Vector3( hookCursor.transform.eulerAngles.x, hookCursor.transform.eulerAngles.y, cursorDirection.Angle() );
 		}
 
-        farMarkerRay = Physics2D.Raycast( hookCursor.transform.position.In2D(), cursorDirection, 100f,  markableLayer.value );
+        farMarkerRay = Physics2D.Raycast( hookCursor.transform.position.In2D(), new Vector2(cursorDirection.x * (playerInput.inverted ? -1 : 1), cursorDirection.y), 100f,  markableLayer.value );
         if( farMarkerRay.collider != null )
         {
             GameObject hitObject = farMarkerRay.collider.gameObject;
@@ -59,7 +60,8 @@ public class HookLauncher : MonoBehaviour {
             if( wall != null || ( hitCharacterAttributes != null && hitObject != transform.gameObject ) )
             {
                 farMarker.SetActive( true );
-                farMarker.transform.position = farMarkerRay.point;
+                Vector2 offset = (transform.position.In2D() - farMarkerRay.point).normalized * farMarkerOffset;
+                farMarker.transform.position = farMarkerRay.point + offset; ;
             }
             else
             {
@@ -81,7 +83,7 @@ public class HookLauncher : MonoBehaviour {
 			inputReceived = false;
 		}
 
-		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.Swept && !attributes.Sweeping )
+		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.Swept && !attributes.Sweeping && !attributes.newlySpawned)
 		{
             rigidbody2D.velocity = Vector2.zero;
 			Vector3 hookDirection = (hookCursor.transform.position - transform.position);

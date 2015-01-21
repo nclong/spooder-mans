@@ -167,6 +167,7 @@ public class SweepLauncher : MonoBehaviour
 
             character.OnWall = false;
             character.HookLaunched = false;
+            character.theHook.SetActive( false );
             character.HookTraveling = false;
             character.Hooked = false;
             character.Jumping = false;
