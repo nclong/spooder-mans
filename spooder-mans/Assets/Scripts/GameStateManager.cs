@@ -76,15 +76,19 @@ public class GameStateManager : MonoBehaviour {
                         {
                             case 0:
                                 redVictory.enabled = true;
+                                redVictory.active = true;
                                 break;
                             case 1:
                                 greenVictory.enabled = true;
+                                greenVictory.active = true;
                                 break;
                             case 2:
                                 purpleVictory.enabled = true;
+                                purpleVictory.active = true;
                                 break;
                             case 3:
                                 yellowVictory.enabled = true;
+                                yellowVictory.active = true;
                                 break;
                             default:
                                 Debug.Log( "This shouldn't happen!" );
@@ -103,9 +107,13 @@ public class GameStateManager : MonoBehaviour {
                 
                 if( Input.GetButton("StartOver"))
                 {
-                    Application.LoadLevel( "MasterScene" );
+                    Application.LoadLevel( "NickScene2" );
                 }
 
+                if( Input.GetButton("Quit"))
+                {
+                    Application.Quit();
+                }
             }
         }
 

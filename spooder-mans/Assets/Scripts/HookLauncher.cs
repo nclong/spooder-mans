@@ -52,7 +52,7 @@ public class HookLauncher : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (playerInput.rightJoystickX != 0f && playerInput.rightJoystickY != 0f ) {
+		if (playerInput.rightJoystickX != 0f || playerInput.rightJoystickY != 0f ) {
 
             stickAngle = Mathf.Atan2( playerInput.rightJoystickY, playerInput.rightJoystickX ) * Mathf.Rad2Deg;
             actualMaxRotationSpeed = rotationMaxSpeed * new Vector2( playerInput.rightJoystickX, playerInput.rightJoystickY ).magnitude;
