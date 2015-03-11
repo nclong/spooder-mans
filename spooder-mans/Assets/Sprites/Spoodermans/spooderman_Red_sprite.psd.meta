@@ -1,0 +1,319 @@
+fileFormatVersion: 2
+guid: 130720fb809224c648020833d38bb0d6
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: red_wall_idle
+    21300002: red_jump_idle
+    21300004: red_hook_travel1
+    21300006: spuderman_A_sprite_prototype_3
+    21300008: spuderman_A_sprite_prototype_4
+    21300010: red_wall_attack_charge
+    21300012: red_attack_hit1
+    21300014: red_attack_hit2
+    21300016: red_wall_attack_cooldown
+    21300018: spuderman_A_sprite_prototype_9
+    21300020: red_jump_attack_charge
+    21300022: red_jump_attack_hit1
+    21300024: red_jump_attack_hit2
+    21300026: red_jump_attack_cooldown
+    21300028: spuderman_A_sprite_prototype_14
+    21300030: 
+    21300032: red_stunned
+    21300034: red_wall_attack_hit1
+    21300036: red_wall_attack_hit2
+    21300038: spuderman_A_sprite_prototype_15
+    21300040: red_wall_run_up1
+    21300042: red_hook_travel2
+    21300044: red_hook_travel3
+    21300046: red_hook_travel4
+    21300048: red_wall_run_up2
+    21300050: red_wall_run_up3
+    21300052: red_wall_run_up4
+    21300054: red_wall_run_down1
+    21300056: red_wall_run_down2
+    21300058: red_wall_run_down3
+    21300060: red_wall_run_down4
+    21300062: red_victory
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: red_wall_idle
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 48
+        width: 28
+        height: 32
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_jump_idle
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 48
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_hook_travel1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 26
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 33
+        width: 26
+        height: 30
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 17
+        width: 22
+        height: 64
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 20
+        width: 22
+        height: 59
+      alignment: 9
+      pivot: {x: .800000012, y: .49000001}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 29
+        width: 27
+        height: 37
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_jump_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 31
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_jump_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 17
+        width: 22
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_jump_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 20
+        width: 22
+        height: 59
+      alignment: 9
+      pivot: {x: .5, y: .49000001}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_jump_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 25
+        width: 22
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_stunned
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 48
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_up1
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 22
+        width: 25
+        height: 52
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_hook_travel2
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 28
+        width: 31
+        height: 18
+      alignment: 9
+      pivot: {x: .5, y: .219999999}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_hook_travel3
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 26
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_hook_travel4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 18
+        width: 32
+        height: 18
+      alignment: 9
+      pivot: {x: .5, y: .779999971}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_up2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 28
+        width: 28
+        height: 41
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_up3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 22
+        width: 25
+        height: 52
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_up4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 28
+        width: 28
+        height: 41
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_down1
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 28
+        width: 23
+        height: 41
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_down2
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 30
+        width: 23
+        height: 39
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_down3
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 28
+        width: 23
+        height: 41
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_wall_run_down4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 30
+        width: 23
+        height: 39
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: red_victory
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 29
+        width: 23
+        height: 45
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: red
+  userData: 

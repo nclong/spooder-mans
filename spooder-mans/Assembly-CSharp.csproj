@@ -46,22 +46,33 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AnimationFlip.cs" />
-     <Compile Include="Assets\Scripts\CharacterAttributes.cs" />
-     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
-     <Compile Include="Assets\Scripts\Constants.cs" />
-     <Compile Include="Assets\Scripts\FireManager.cs" />
-     <Compile Include="Assets\Scripts\GameStateManager.cs" />
-     <Compile Include="Assets\Scripts\Gravity.cs" />
-     <Compile Include="Assets\Scripts\HookLauncher.cs" />
-     <Compile Include="Assets\Scripts\HookManager.cs" />
-     <Compile Include="Assets\Scripts\InputManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerInput.cs" />
-     <Compile Include="Assets\Scripts\SoundManager.cs" />
-     <Compile Include="Assets\Scripts\Sweep.cs" />
-     <Compile Include="Assets\Scripts\SweepLauncher.cs" />
-     <Compile Include="Assets\Scripts\TitleStartup.cs" />
-     <Compile Include="Assets\Scripts\WallAttributes.cs" />
+     <Compile Include="Assets\Scripts\AnimationManager.cs" />
+     <Compile Include="Assets\Scripts\AnimatorParams.cs" />
+     <Compile Include="Assets\Scripts\CharacterControls.cs" />
+     <Compile Include="Assets\Scripts\HitBoxBehavior.cs" />
+     <Compile Include="Assets\Scripts\InputManagerLazy.cs" />
+     <Compile Include="Assets\Scripts\Old\AnimationFlip.cs" />
+     <Compile Include="Assets\Scripts\Old\CharacterAttributes.cs" />
+     <Compile Include="Assets\Scripts\Old\CharacterMovement.cs" />
+     <Compile Include="Assets\Scripts\Old\Constants.cs" />
+     <Compile Include="Assets\Scripts\Old\FireManager.cs" />
+     <Compile Include="Assets\Scripts\Old\GameStateManager.cs" />
+     <Compile Include="Assets\Scripts\Old\Gravity.cs" />
+     <Compile Include="Assets\Scripts\Old\HookLauncher.cs" />
+     <Compile Include="Assets\Scripts\Old\HookManager.cs" />
+     <Compile Include="Assets\Scripts\Old\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Old\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\Old\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\Old\Sweep.cs" />
+     <Compile Include="Assets\Scripts\Old\SweepLauncher.cs" />
+     <Compile Include="Assets\Scripts\Old\TitleStartup.cs" />
+     <Compile Include="Assets\Scripts\Old\WallAttributes.cs" />
+     <Compile Include="Assets\Scripts\StageManager.cs" />
+     <Compile Include="Assets\Scripts\TagManager.cs" />
+     <Compile Include="Assets\Scripts\WallProperties.cs" />
+     <Compile Include="Assets\Scripts\WebControls.cs" />
+     <Compile Include="Assets\Scripts\WebLauncher.cs" />
+     <Compile Include="Assets\Scripts\WebPuller.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

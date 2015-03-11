@@ -1,0 +1,322 @@
+fileFormatVersion: 2
+guid: a6a350e2a943b7e4787dd32b82502c4f
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: purp_wall_idle
+    21300002: purp_jump_idle
+    21300004: purp_hook_travel1
+    21300006: spuderman_D_sprite_prototype_3
+    21300008: spuderman_D_sprite_prototype_4
+    21300010: purp_wall_attack_charge
+    21300012: purp_wall_attack_hit1
+    21300014: purp_wall_attack_hit2
+    21300016: purp_wall_attack_cooldown
+    21300018: spuderman_D_sprite_prototype_9
+    21300020: purp_jump_attack_charge
+    21300022: purp_jump_attack_hit1
+    21300024: purp_jump_attack_hit2
+    21300026: purp_jump_attack_cooldown
+    21300028: spuderman_D_sprite_prototype_14
+    21300030: purp_wall_run_up1
+    21300032: purp_wall_run_up2
+    21300034: purp_wall_run_up3
+    21300036: purp_wall_run_up4
+    21300038: spuderman_D_sprite_prototype_19
+    21300040: purp_wall_run_down1
+    21300042: purp_wall_run_down2
+    21300044: purp_wall_run_down3
+    21300046: purp_wall_run_down4
+    21300048: spuderman_D_sprite_prototype_24
+    21300050: spuderman_D_sprite_prototype_25
+    21300052: spuderman_D_sprite_prototype_26
+    21300054: spuderman_D_sprite_prototype_27
+    21300056: spuderman_D_sprite_prototype_28
+    21300058: spuderman_D_sprite_prototype_29
+    21300060: purp_hook_travel2
+    21300062: purp_hook_travel3
+    21300064: purp_hook_travel4
+    21300066: purp_stunned
+    21300068: purp_victory
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: purp_wall_idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_jump_idle
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_hook_travel1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 42
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 16
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 22
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 3
+        width: 22
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 12
+        width: 27
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_jump_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 14
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_jump_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 24
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_jump_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 3
+        width: 24
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_jump_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 8
+        width: 25
+        height: 45
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_up1
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 5
+        width: 25
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_up2
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 11
+        width: 28
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_up3
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 5
+        width: 25
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_up4
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 11
+        width: 28
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_down1
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 11
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_down2
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 13
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_down3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 11
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_wall_run_down4
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 13
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_hook_travel2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 44
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_hook_travel3
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 38
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_hook_travel4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 33
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_stunned
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 32
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: purp_victory
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 12
+        width: 21
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

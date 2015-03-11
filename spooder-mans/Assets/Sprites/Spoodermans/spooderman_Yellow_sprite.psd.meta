@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 133cb572c3a16464cadfb414a43ab67f
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: yell_wall_idle
+    21300002: yell_jump_idle
+    21300004: yell_hook_travel1
+    21300006: spuderman_B_sprite_prototype_3
+    21300008: spuderman_B_sprite_prototype_4
+    21300010: yell_wall_attack_charge
+    21300012: yell_wall_attack_hit1
+    21300014: yell_wall_attack_hit2
+    21300016: yell_wall_attack_cooldown
+    21300018: spuderman_B_sprite_prototype_9
+    21300020: yell_jump_attack_charge
+    21300022: yell_jump_attack_hit1
+    21300024: yell_jump_attack_hit2
+    21300026: yell_jump_attack_cooldown
+    21300028: spuderman_B_sprite_prototype_14
+    21300030: yell_wall_run_up1
+    21300032: yell_wall_run_up2
+    21300034: yell_wall_run_up4
+    21300036: yell_wall_run_up4
+    21300038: spuderman_B_sprite_prototype_19
+    21300040: yell_wall_run_down1
+    21300042: yell_wall_run_down_2
+    21300044: yell_wall_run_down3
+    21300046: yell_wall_run_down_4
+    21300048: spuderman_B_sprite_prototype_24
+    21300050: spuderman_B_sprite_prototype_25
+    21300052: spuderman_B_sprite_prototype_26
+    21300054: yell_hook_travel2
+    21300056: yell_hook_travel3
+    21300058: yell_hook_travel4
+    21300060: spuderman_B_sprite_prototype_30
+    21300062: spuderman_B_sprite_prototype_31
+    21300064: spuderman_B_sprite_prototype_32
+    21300066: yell_stunned
+    21300068: yell_victory
+    21300070: yell_wall_run_up3
+    21300072: yell_wall_run_down2
+    21300074: yell_wall_run_down4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: yell_wall_idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 28
+        height: 32
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_jump_idle
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_hook_travel1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 42
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 16
+        width: 25
+        height: 31
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 22
+        height: 64
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 3
+        width: 22
+        height: 59
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 12
+        width: 27
+        height: 40
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_jump_attack_charge
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 14
+        width: 25
+        height: 33
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_jump_attack_hit1
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 0
+        width: 22
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_jump_attack_hit2
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 3
+        width: 22
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_jump_attack_cooldown
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 8
+        width: 24
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_up1
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 5
+        width: 24
+        height: 52
+      alignment: 9
+      pivot: {x: .800000012, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_up2
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 11
+        width: 27
+        height: 41
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_up3
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 5
+        width: 24
+        height: 52
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_up4
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 11
+        width: 27
+        height: 41
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_down1
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 11
+        width: 23
+        height: 41
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_down2
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 13
+        width: 23
+        height: 38
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_down3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 11
+        width: 23
+        height: 41
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_wall_run_down4
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 13
+        width: 23
+        height: 38
+      alignment: 5
+      pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_hook_travel2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 44
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_hook_travel3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 42
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_hook_travel4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 34
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_stunned
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 32
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: yell_victory
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 12
+        width: 26
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

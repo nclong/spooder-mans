@@ -1,0 +1,142 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class SoundManager : MonoBehaviour {
+
+	//jump Audios
+	public AudioSource jumpAudio;
+
+	// bounce Audios
+	public AudioSource bounceAudio;
+
+	//sweep Audios
+	public AudioSource sweepAudio0_0;
+	public AudioSource sweepAudio0_1;
+	public AudioSource sweepAudio0_2;
+	public AudioSource sweepAudio1_0;
+	public AudioSource sweepAudio1_1;
+	public AudioSource sweepAudio1_2;
+	public AudioSource sweepAudio2_0;
+	public AudioSource sweepAudio2_1;
+	public AudioSource sweepAudio2_2;
+	public AudioSource sweepAudio3_0;
+	public AudioSource sweepAudio3_1;
+	public AudioSource sweepAudio3_2;
+	private AudioSource[] sweepAudios0;
+	private AudioSource[] sweepAudios1;
+	private AudioSource[] sweepAudios2;
+	private AudioSource[] sweepAudios3;
+	private AudioSource[,] arrayOfPlayersSweep;
+
+	//grapple Audios
+	public AudioSource grappleAudio0;
+	//clank Audios
+	public AudioSource clankAudio0;
+	//death Audios
+	public AudioSource deathAudio0;
+	public AudioSource deathAudio1;
+	public AudioSource deathAudio2;
+	public AudioSource deathAudio3;
+	private AudioSource[] deathAudios;
+
+	//victory Audios
+	public AudioSource victorAudio0;
+	public AudioSource victorAudio1;
+	public AudioSource victorAudio2;
+	public AudioSource victorAudio3;
+	private AudioSource[] victorAudios;
+
+	public AudioSource[] victorMusics;
+
+	//attack Sounds
+	public AudioSource hitMed;
+	public AudioSource hitLarge;
+	public AudioSource impactWeak;
+	public AudioSource impactMed;
+	public AudioSource impactLarge;
+	public AudioSource impactCrit;
+	public AudioSource impactEcho;
+	public AudioSource whoosh;
+
+	// Use this for initialization
+	void Start () {
+		sweepAudios0 = new AudioSource[]{sweepAudio0_0,sweepAudio0_1,sweepAudio0_2};
+		sweepAudios1 = new AudioSource[]{sweepAudio1_0,sweepAudio1_1,sweepAudio1_2};
+		sweepAudios2 = new AudioSource[]{sweepAudio2_0,sweepAudio2_1,sweepAudio2_2};
+		sweepAudios3 = new AudioSource[]{sweepAudio3_0,sweepAudio3_1,sweepAudio3_2};
+		arrayOfPlayersSweep = new AudioSource[4,3]{{sweepAudio0_0,sweepAudio0_1,sweepAudio0_2},{sweepAudio1_0,sweepAudio1_1,sweepAudio1_2},{sweepAudio2_0,sweepAudio2_1,sweepAudio2_2},{sweepAudio3_0,sweepAudio3_1,sweepAudio3_2}};
+
+
+		deathAudios = new AudioSource[]{deathAudio0,deathAudio2,deathAudio2,deathAudio3};
+		victorAudios = new AudioSource[]{victorAudio0,victorAudio1,victorAudio2,victorAudio3};
+	}
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	public void playJumpAudio ()
+	{
+		jumpAudio.Play ();
+	}
+
+	public void playBounceAudio ()
+	{
+		bounceAudio.Play ();
+	}
+	public void playImpactWeakAudio ()
+	{
+		impactWeak.Play ();
+	}
+	public void playImpactMidAudio ()
+	{
+		impactMed.Play ();
+	}
+	public void playImpactLargeAudio ()
+	{
+		impactLarge.Play ();
+		impactEcho.Play();
+	}
+	public void playImpactCritAudio ()
+	{
+		impactCrit.Play ();
+		impactEcho.Play();
+	}
+	public void playHitMidAudio ()
+	{
+		hitMed.Play ();
+	}
+	public void playHitLargeAudio ()
+	{
+		hitLarge.Play ();
+	}
+	public void playWhooshAudio ()
+	{
+		whoosh.Play ();
+	}
+	public void playSweepAudio (int player){
+		arrayOfPlayersSweep[player,Random.Range (0, 3)].Play ();
+		//sweepAudios [Random.Range (0, 3)].Play ();
+	}
+
+	public void playGrappleAudio(){
+		grappleAudio0.Play ();
+	}	
+
+	public void playClankAudio(){
+		clankAudio0.Play ();
+	}	
+
+	public void playDeathAudio(int player){
+		deathAudios[player].Play ();
+	}
+
+	public void playVictorAudio(int player){
+		victorAudios [player].Play ();
+	}
+
+	public void playVictorMusic (int player) {
+		victorMusics [player].Play();
+	}
+
+}
