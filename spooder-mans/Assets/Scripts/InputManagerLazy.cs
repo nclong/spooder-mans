@@ -62,6 +62,6 @@ public class InputManagerLazy : MonoBehaviour
 		
 		inputs[index].jump = Input.GetButton ( "Jump" + num );
 		inputs[index].sweep = Input.GetButton ( "Sweep" + num );
-		inputs[index].hook = ( Input.GetAxis("Hook" + num ) > 0f )? true : false;
+		inputs[index].hook = ( Input.GetAxis("Hook" + num ) != 0f )? true : false;
 	}
 }

@@ -50,9 +50,9 @@ public class GameStateManager : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         redStock.text = "x " + playerStock[0].ToString();
-        greenStock.text = "x " + playerStock[1].ToString();
-        purpleStock.text = "x " + playerStock[2].ToString();
-        yellowStock.text = "x " + playerStock[3].ToString();
+        greenStock.text = "x " + playerStock[2].ToString();
+        purpleStock.text = "x " + playerStock[3].ToString();
+        yellowStock.text = "x " + playerStock[1].ToString();
         playersAlive = 4;
         for( int i = 0; i < 4; ++i )
         {
