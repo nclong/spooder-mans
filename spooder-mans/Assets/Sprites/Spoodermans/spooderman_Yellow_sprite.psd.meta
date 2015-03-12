@@ -40,6 +40,7 @@ TextureImporter:
     21300070: yell_wall_run_up3
     21300072: yell_wall_run_down2
     21300074: yell_wall_run_down4
+    21300076: yell_wall_idle
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -85,8 +85,8 @@ TextureImporter:
         y: 32
         width: 28
         height: 32
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_jump_idle
       rect:
@@ -115,8 +115,8 @@ TextureImporter:
         y: 16
         width: 29
         height: 32
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_attack_hit1
       rect:
@@ -125,8 +125,8 @@ TextureImporter:
         y: 0
         width: 22
         height: 64
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_attack_hit2
       rect:
@@ -135,8 +135,8 @@ TextureImporter:
         y: 3
         width: 22
         height: 59
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_attack_cooldown
       rect:
@@ -145,8 +145,8 @@ TextureImporter:
         y: 12
         width: 27
         height: 41
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_jump_attack_charge
       rect:
@@ -195,8 +195,8 @@ TextureImporter:
         y: 5
         width: 25
         height: 52
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_up2
       rect:
@@ -205,8 +205,8 @@ TextureImporter:
         y: 11
         width: 28
         height: 41
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_up3
       rect:
@@ -215,8 +215,8 @@ TextureImporter:
         y: 5
         width: 25
         height: 52
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_up4
       rect:
@@ -225,8 +225,8 @@ TextureImporter:
         y: 11
         width: 28
         height: 41
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_down1
       rect:
@@ -235,8 +235,8 @@ TextureImporter:
         y: 11
         width: 23
         height: 41
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_down2
       rect:
@@ -245,8 +245,8 @@ TextureImporter:
         y: 13
         width: 23
         height: 39
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_down3
       rect:
@@ -255,8 +255,8 @@ TextureImporter:
         y: 11
         width: 23
         height: 41
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_wall_run_down4
       rect:
@@ -265,8 +265,8 @@ TextureImporter:
         y: 13
         width: 23
         height: 39
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .699999988, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: purp_hook_travel2
       rect:

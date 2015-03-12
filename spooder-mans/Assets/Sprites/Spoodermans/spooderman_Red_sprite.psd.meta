@@ -113,7 +113,7 @@ TextureImporter:
         width: 26
         height: 30
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .899999976, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_attack_hit1
       rect:
@@ -123,7 +123,7 @@ TextureImporter:
         width: 22
         height: 64
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_attack_hit2
       rect:
@@ -133,7 +133,7 @@ TextureImporter:
         width: 22
         height: 59
       alignment: 9
-      pivot: {x: .800000012, y: .49000001}
+      pivot: {x: 1, y: .49000001}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_attack_cooldown
       rect:
@@ -143,7 +143,7 @@ TextureImporter:
         width: 27
         height: 37
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .899999976, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_jump_attack_charge
       rect:
@@ -203,7 +203,7 @@ TextureImporter:
         width: 25
         height: 52
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .850000024, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_hook_travel2
       rect:
@@ -243,7 +243,7 @@ TextureImporter:
         width: 28
         height: 41
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .850000024, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_up3
       rect:
@@ -253,7 +253,7 @@ TextureImporter:
         width: 25
         height: 52
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .850000024, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_up4
       rect:
@@ -263,7 +263,7 @@ TextureImporter:
         width: 28
         height: 41
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: .850000024, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_down1
       rect:
@@ -273,7 +273,7 @@ TextureImporter:
         width: 23
         height: 41
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_down2
       rect:
@@ -283,7 +283,7 @@ TextureImporter:
         width: 23
         height: 39
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_down3
       rect:
@@ -293,7 +293,7 @@ TextureImporter:
         width: 23
         height: 41
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_wall_run_down4
       rect:
@@ -303,7 +303,7 @@ TextureImporter:
         width: 23
         height: 39
       alignment: 9
-      pivot: {x: .800000012, y: .5}
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: red_victory
       rect:

@@ -94,7 +94,7 @@ public class WebPuller : MonoBehaviour
 			if ( targetAniman != null )
 			{
 				// Hit a player with web
-				if ( targetAniman != playerAniman )
+				if ( targetAniman != playerAniman && !rebound && !targetAniman.IsStunned () && !targetAniman.IsAttacking () )
 				{
 					targetAniman.SetStunned( controls.WEB_STUN_FRAMES );
 					target = targetAniman.gameObject.rigidbody2D;

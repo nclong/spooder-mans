@@ -53,6 +53,7 @@ public class CharacterControls : MonoBehaviour
 	private int lagTimer;
 	private Vector2 storeVelocity;
 	private Animator animator;
+	private float tempFallSpeed;
 	
 	// INITIALIZE
 	void Awake()
@@ -65,13 +66,13 @@ public class CharacterControls : MonoBehaviour
 		directionFacing = 1;
 		framesSpawned = 0;
 		framesNewlySpawned = 0;
-		framesBeforeRespawn = 0;
 		framesSinceDeath = 0;
 		respawning = false;
 		newlySpawned = false;
 		lagFrames = -1;
 		lagTimer = -1;
 		storeVelocity = Vector2.zero;
+		tempFallSpeed = maxDropSpeed;
 	}
 	
 	// FIXED UPDATE
@@ -130,6 +131,7 @@ public class CharacterControls : MonoBehaviour
 			// If hitting a player, push them in opposite direction
 			else if ( theTag == TagManager.player && !animan.IsAttacking () )
 			{
+				//Physics2D.IgnoreCollision ( this.collider2D, collision.collider );
 				if ( rigidbody2D.position.y > collision.transform.position.y )
 				{
 					rigidbody2D.velocity = new Vector2 ( rigidbody2D.velocity.x, bumpSpeed );
@@ -153,10 +155,10 @@ public class CharacterControls : MonoBehaviour
 	}
 	
 	// FLAG GETTERS AND SETTERS
-	bool CanStartJump () { return !animan.IsAttacking() && animan.IsJumpLifted() && animan.GetJumpCounter () < MAX_JUMPS && !animan.IsStunned (); }
-	bool CanFall () { return !animan.IsGettingPulled () && ( animan.IsMidair () || animan.IsStunned () ); }
-	bool CanAttack () { return animan.IsAttackLifted () && !animan.IsCharging () && !animan.IsAttacking () && !animan.IsStunned (); }
-	bool CanMove () { return !animan.IsGettingPulled () && !animan.IsAttacking () && !animan.IsStunned () && !animan.IsCharging (); }
+	bool CanStartJump () { return !newlySpawned && !respawning && !animan.IsAttacking() && animan.IsJumpLifted() && animan.GetJumpCounter () < MAX_JUMPS && !animan.IsStunned (); }
+	bool CanFall () { return !newlySpawned && !respawning && !animan.IsGettingPulled () && ( animan.IsMidair () || animan.IsStunned () ); }
+	bool CanAttack () { return !newlySpawned && !respawning && animan.IsAttackLifted () && !animan.IsCharging () && !animan.IsAttacking () && !animan.IsStunned (); }
+	bool CanMove () { return !newlySpawned && !respawning && !animan.IsGettingPulled () && !animan.IsAttacking () && !animan.IsStunned () && !animan.IsCharging (); }
 
 	public float GetDirection() { return directionFacing; }
 	public void SetDirection ( int dir ) { directionFacing = dir; }
@@ -302,6 +304,7 @@ public class CharacterControls : MonoBehaviour
 	// DoAerialBounce: this allows players to perform an aerial
 	public void DoAerialBounce()
 	{
+		//Debug.Log ("asdasdas");
 		Vector2 inputs = new Vector2 ( InputManagerLazy.GetInput( PLAYER_INDEX ).leftJoystickX, InputManagerLazy.GetInput( PLAYER_INDEX ).leftJoystickY );
 		float aerialSpeed = aerialBounceSpeed;
 
@@ -320,16 +323,19 @@ public class CharacterControls : MonoBehaviour
 	// GetHit: apply an acceleration scaled down based on character's resistance
 	public void GetHit ( Vector2 direction, float power )
 	{
-		rigidbody2D.velocity = Vector2.zero;
-		float resistance = resistanceOnWall;
-		Vector2 newDir = direction;
-		if ( animan.IsMidair() )
-			resistance = resistanceInAir;
-		else
-			newDir = new Vector2 ( directionFacing, direction.y ).normalized;
-		rigidbody2D.velocity = newDir * power / resistance;
-		animan.SetStunned ( ( int ) power );
-		SetLag ( ( int ) ( power / 3f ) );
+		if ( !newlySpawned )
+		{
+			rigidbody2D.velocity = Vector2.zero;
+			float resistance = resistanceOnWall;
+			Vector2 newDir = direction;
+			if ( animan.IsMidair() )
+				resistance = resistanceInAir;
+			else
+				newDir = new Vector2 ( directionFacing, direction.y ).normalized;
+			rigidbody2D.velocity = newDir * power / resistance;
+			animan.SetStunned ( ( int ) power );
+			SetLag ( ( int ) ( power / 3f ) );
+		}
 	}
 
 	// SetLag: Pause animations and defer velocity applications until end of lag period.
@@ -352,11 +358,14 @@ public class CharacterControls : MonoBehaviour
 
 	void DoKill()
 	{
-		if( transform.position.y <= -30 || transform.position.y >= 30 )
-			KillPlayer();
-		
-		if( newlySpawned )
+		if( transform.position.y <= -25 || transform.position.y >= 25 )
 		{
+			animan.SetSpawnStatuses ();
+			KillPlayer();
+		}
+		else if( newlySpawned )
+		{
+			Debug.Log ("asdasd");
 			++framesSpawned;
 			if( framesSpawned > framesNewlySpawned + framesBeforeRespawn)
 			{
@@ -364,8 +373,7 @@ public class CharacterControls : MonoBehaviour
 				framesSpawned = 0;
 			}
 		}
-
-		if( respawning )
+		else if( respawning )
 		{
 			++framesSinceDeath;
 			if( framesSinceDeath >= framesBeforeRespawn )
@@ -393,11 +401,10 @@ public class CharacterControls : MonoBehaviour
 			transform.position = Spawner.transform.position;
 			renderer.enabled = false;
 			rigidbody2D.velocity = Vector2.zero;
-			newlySpawned = true;
 		}
 		else
 		{
-			Destroy( transform.gameObject );
+			transform.gameObject.SetActive ( false );
 		}
 	}
 }
