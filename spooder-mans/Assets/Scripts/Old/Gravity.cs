@@ -14,10 +14,10 @@ public class Gravity : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (!attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.newlySpawned && !attributes.Sweeping ) {
-			rigidbody2D.velocity -= new Vector2( 0f, Strength );
-			if ( rigidbody2D.velocity.magnitude > TerminalVelocity )
+			GetComponent<Rigidbody2D>().velocity -= new Vector2( 0f, Strength );
+			if ( GetComponent<Rigidbody2D>().velocity.magnitude > TerminalVelocity )
 			{
-				rigidbody2D.velocity = rigidbody2D.velocity.normalized * TerminalVelocity;
+				GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * TerminalVelocity;
 			}
 		}
 

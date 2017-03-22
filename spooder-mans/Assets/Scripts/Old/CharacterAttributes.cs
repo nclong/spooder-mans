@@ -65,13 +65,13 @@ public class CharacterAttributes : MonoBehaviour {
 			{
 				float scale = 1f - (float)framesSwept / (float)SweepStunFrames;
 				float powerScale = Mathf.Pow( scale, 0.9f );
-				rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x * powerScale, 0f );
+				GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x * powerScale, 0f );
 			}
 			else
 			{
 				Swept = false;
-				collider2D.isTrigger = false;
-				rigidbody2D.isKinematic = false;
+				GetComponent<Collider2D>().isTrigger = false;
+				GetComponent<Rigidbody2D>().isKinematic = false;
 				framesSwept = 0;
 			}
 		}
@@ -102,8 +102,8 @@ public class CharacterAttributes : MonoBehaviour {
 			++framesSinceDeath;
 			if( framesSinceDeath >= framesBeforeRespawn )
 			{
-				renderer.enabled = true;
-				rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y/* + Random.Range( -SpawnVariance, SpawnVariance ) */);
+				GetComponent<Renderer>().enabled = true;
+				GetComponent<Rigidbody2D>().velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y/* + Random.Range( -SpawnVariance, SpawnVariance ) */);
 				framesSinceDeath = 0;
 				newlySpawned = true;
 				respawning = false;
@@ -156,8 +156,8 @@ public class CharacterAttributes : MonoBehaviour {
 		{
 			if( Hooked || HookTraveling)
 			{
-				collisionObject.rigidbody2D.velocity = Vector2.zero;
-				rigidbody2D.velocity = Vector2.zero;
+				collisionObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				Hooked = false;
 				HookTraveling = false;
 				HookLaunched = false;
@@ -170,7 +170,7 @@ public class CharacterAttributes : MonoBehaviour {
 			
 			if( OnWall )
 			{
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				Hooked = false;
 				HookTraveling = false;
 				HookLaunched = false;
@@ -185,7 +185,7 @@ public class CharacterAttributes : MonoBehaviour {
 			
 			if( character.OnWall )
 			{
-				collisionObject.rigidbody2D.velocity = Vector2.zero;
+				collisionObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				Hooked = false;
 				HookTraveling = false;
 				HookLaunched = false;
@@ -298,8 +298,8 @@ public class CharacterAttributes : MonoBehaviour {
 		{
 			respawning = true;
 			transform.position = Spawner.transform.position;
-			renderer.enabled = false;
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Renderer>().enabled = false;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			newlySpawned = true;
 			
 		}

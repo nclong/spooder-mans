@@ -100,13 +100,13 @@ public class WebLauncher : MonoBehaviour {
 			if ( hookButtonReleased && CanHook() )		// only execute if player is allowed to hook and the button has been released from before
 			{
 				// get direction to launch
-				dir = new Vector2 ( rigidbody2D.position.x, rigidbody2D.position.y ) + ( joystickVect * webRange );
+				dir = new Vector2 ( GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y ) + ( joystickVect * webRange );
 
 				// launch the web
 				sound.playGrappleAudio ();
 				web.SetActive ( true );
 				animan.SetHooking ();
-				web.GetComponent<WebPuller> ().StartPull ( dir, rigidbody2D, animan, webSpeed, playerSpeed, controls );
+				web.GetComponent<WebPuller> ().StartPull ( dir, GetComponent<Rigidbody2D>(), animan, webSpeed, playerSpeed, controls );
 			}
 			hookButtonReleased = false;		// player has pressed the button
 		}

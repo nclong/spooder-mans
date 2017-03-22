@@ -20,25 +20,25 @@ public class AnimationFlip : MonoBehaviour {
 	void FixedUpdate()
 	{
 		bool changeDirection = false;
-		if( LastX != 0 && rigidbody.velocity.x != 0 )
+		if( LastX != 0 && GetComponent<Rigidbody>().velocity.x != 0 )
 		{
-			changeDirection = Mathf.Sign( LastX ) != Mathf.Sign( rigidbody2D.velocity.x ); 
+			changeDirection = Mathf.Sign( LastX ) != Mathf.Sign( GetComponent<Rigidbody2D>().velocity.x ); 
 		}
 		
 		if (changeDirection)
 		{
-			transform.localScale = new Vector2(3 * Mathf.Sign(rigidbody2D.velocity.x), transform.localScale.y);
+			transform.localScale = new Vector2(3 * Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x), transform.localScale.y);
 			foreach( Transform child in transform)
 			{
-				child.localScale = new Vector3( Mathf.Abs(child.localScale.x) * Mathf.Sign(rigidbody2D.velocity.x), child.localScale.y );
+				child.localScale = new Vector3( Mathf.Abs(child.localScale.x) * Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x), child.localScale.y );
 			}
 			float sign = Mathf.Sign(transform.localScale.x);
 		}
 		
 		PrevOnWall = attributes.OnWall;
-		if( LastX != 0 && rigidbody.velocity.x != 0 )
+		if( LastX != 0 && GetComponent<Rigidbody>().velocity.x != 0 )
 		{
-			LastX = rigidbody2D.velocity.x;
+			LastX = GetComponent<Rigidbody2D>().velocity.x;
 		}
 		
 		// Hook is also being flipped at the same time

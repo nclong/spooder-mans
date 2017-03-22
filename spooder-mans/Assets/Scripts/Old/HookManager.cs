@@ -53,7 +53,7 @@ public class HookManager : MonoBehaviour {
 		transform.localPosition = new Vector2( this.dir.x * Mathf.Sign( transform.parent.localScale.x ), this.dir.y ); 
 		Debug.Log( "Local Position: " + transform.localPosition );
 		transform.gameObject.SetActive(true);
-		rigidbody2D.velocity = this.dir.In2D() * this.hookSpeed;
+		GetComponent<Rigidbody2D>().velocity = this.dir.In2D() * this.hookSpeed;
 		//line.SetPosition(0, transform.parent.position );
 		
 		
@@ -78,11 +78,11 @@ public class HookManager : MonoBehaviour {
 			}
 			else
 			{
-				transform.parent.rigidbody2D.velocity = Vector2.zero;
+				transform.parent.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				dir = (transform.position - transform.parent.position).normalized;
 				attributes.HookTraveling = true;
-				rigidbody2D.velocity = Vector2.zero;
-				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+				transform.parent.GetComponent<Rigidbody2D>().velocity = dir * playerSpeed;
 				
 				attributes.anim.SetBool("Stunned", false);
 				attributes.anim.SetBool("Up", false);
@@ -105,13 +105,13 @@ public class HookManager : MonoBehaviour {
 			}
 			else
 			{
-				rigidbody2D.velocity = dir * -hookSpeed;
+				GetComponent<Rigidbody2D>().velocity = dir * -hookSpeed;
 				character.Hooked = true;
 				character.HookTraveling = false;
 				character.Jumping = false;
 				character.Sweeping = false;
 				character.Swept = false;
-				collisionObject.rigidbody2D.velocity = dir * -playerSpeed; 
+				collisionObject.GetComponent<Rigidbody2D>().velocity = dir * -playerSpeed; 
 			}
 			
 		}
@@ -124,7 +124,7 @@ public class HookManager : MonoBehaviour {
 			}
 			else
 			{
-				transform.parent.rigidbody2D.velocity = dir * playerSpeed;
+				transform.parent.GetComponent<Rigidbody2D>().velocity = dir * playerSpeed;
 				character.Hooked = true;
 				character.HookTraveling = false;
 				character.Jumping = false;

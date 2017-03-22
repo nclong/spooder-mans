@@ -32,7 +32,7 @@ public class WebPuller : MonoBehaviour
 	// StartPull: tell the attached gameObject to begin a pull command
 	public void StartPull ( Vector2 targetPosition, Rigidbody2D player, AnimationManager animan, float webSpeed, float playerSpeed, CharacterControls controls )
 	{
-		rigidbody2D.position = player.position;
+		GetComponent<Rigidbody2D>().position = player.position;
 		this.targetPosition = targetPosition;
 		this.webSpeed = webSpeed;
 		this.playerSpeed = playerSpeed;
@@ -50,8 +50,8 @@ public class WebPuller : MonoBehaviour
 		// if player is hooking and isn't getting pulled, do launch phase
 		if ( !rebound && playerAniman.IsHooking () )
 		{
-			if ( !playerAniman.IsGettingPulled () && rigidbody2D.position != targetPosition )
-				transform.position = Vector2.MoveTowards ( rigidbody2D.position, targetPosition, webSpeed * Time.fixedDeltaTime );
+			if ( !playerAniman.IsGettingPulled () && GetComponent<Rigidbody2D>().position != targetPosition )
+				transform.position = Vector2.MoveTowards ( GetComponent<Rigidbody2D>().position, targetPosition, webSpeed * Time.fixedDeltaTime );
 			else
 				rebound = true;
 		}
@@ -94,17 +94,17 @@ public class WebPuller : MonoBehaviour
 			if ( targetAniman != null )
 			{
 				// Hit a player with web
-				if ( targetAniman != playerAniman && !rebound && !targetAniman.IsStunned () && !targetAniman.IsAttacking () )
+				if ( targetAniman != playerAniman && !rebound && !targetAniman.IsAttacking () )
 				{
 					targetAniman.SetStunned( controls.WEB_STUN_FRAMES );
-					target = targetAniman.gameObject.rigidbody2D;
+					target = targetAniman.gameObject.GetComponent<Rigidbody2D>();
 					rebound = true;	// flag getting pulled
 				}
 				// Hit self with web
 				else if ( rebound )
 				{
 					EndHook ();
-					player.position = targetPosition;
+					//player.position = targetPosition;
 				}
 			}
 			// Hit a wall with web
@@ -119,7 +119,7 @@ public class WebPuller : MonoBehaviour
 				}
 			}
 			// If hit anything else, cancel web
-			else if ( collision.collider2D != null )
+			else if ( collision.GetComponent<Collider2D>() != null )
 			{
 				rebound = true;
 			}

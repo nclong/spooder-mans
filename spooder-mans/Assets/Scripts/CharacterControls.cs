@@ -83,7 +83,7 @@ public class CharacterControls : MonoBehaviour
 			if ( lagTimer == lagFrames - 1 )
 			{
 				animator.speed = 1;
-				rigidbody2D.velocity = storeVelocity;
+				GetComponent<Rigidbody2D>().velocity = storeVelocity;
 				lagTimer = -1;
 				lagFrames = -1;
 				animan.ClearLagged ();
@@ -91,7 +91,7 @@ public class CharacterControls : MonoBehaviour
 			else 
 			{
 				lagTimer++;
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				animator.speed = 0;
 			}
 		}
@@ -126,20 +126,20 @@ public class CharacterControls : MonoBehaviour
 				directionFacing = wall.directionFacing;
 
 				// convert momentum to sliding
-				rigidbody2D.velocity = new Vector2 ( 0f, rigidbody2D.velocity.x );	//This line creates less landing velocity
+				GetComponent<Rigidbody2D>().velocity = new Vector2 ( 0f, GetComponent<Rigidbody2D>().velocity.x );	//This line creates less landing velocity
 			}
 			// If hitting a player, push them in opposite direction
 			else if ( theTag == TagManager.player && !animan.IsAttacking () )
 			{
 				//Physics2D.IgnoreCollision ( this.collider2D, collision.collider );
-				if ( rigidbody2D.position.y > collision.transform.position.y )
+				if ( GetComponent<Rigidbody2D>().position.y > collision.transform.position.y )
 				{
-					rigidbody2D.velocity = new Vector2 ( rigidbody2D.velocity.x, bumpSpeed );
+					GetComponent<Rigidbody2D>().velocity = new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, bumpSpeed );
 					animan.ClearJumpCounter ();
 					sound.playBounceAudio ();
 				}
 				else
-					rigidbody2D.velocity = new Vector2 ( rigidbody2D.velocity.x, -1 * bumpSpeed );
+					GetComponent<Rigidbody2D>().velocity = new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, -1 * bumpSpeed );
 			}
 		}
 	}
@@ -150,7 +150,7 @@ public class CharacterControls : MonoBehaviour
 		if ( theTag == TagManager.wall )
 		{
 			animan.SetMidair ();
-			rigidbody2D.velocity = new Vector2( runSpeed * directionFacing * wallJumpForce, rigidbody2D.velocity.y );
+			GetComponent<Rigidbody2D>().velocity = new Vector2( runSpeed * directionFacing * wallJumpForce, GetComponent<Rigidbody2D>().velocity.y );
 		}
 	}
 	
@@ -184,7 +184,7 @@ public class CharacterControls : MonoBehaviour
 	}
 	void AirNudge( Vector2 nudgeVec )		// nudge avatar towards input direction
 	{
-		rigidbody2D.velocity = Vector2.MoveTowards ( rigidbody2D.velocity, new Vector2 ( nudgeVec.normalized.x * maxAirMoveSpeed, rigidbody2D.velocity.y ), midairAcceleration * Time.deltaTime );
+		GetComponent<Rigidbody2D>().velocity = Vector2.MoveTowards ( GetComponent<Rigidbody2D>().velocity, new Vector2 ( nudgeVec.normalized.x * maxAirMoveSpeed, GetComponent<Rigidbody2D>().velocity.y ), midairAcceleration * Time.deltaTime );
 	}
 	void RunOnWall( float direction )
 	{
@@ -192,20 +192,20 @@ public class CharacterControls : MonoBehaviour
 		{
 			animan.SetRunningUp ();
 			animan.ClearRunningDown ();
-			rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x, runSpeed );
+			GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x, runSpeed );
 		}
 		else if ( direction < 0f )			// run down. modify revelant states
 		{
 			animan.SetRunningDown ();
 			animan.ClearRunningUp ();
-			rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x, -1 * runSpeed );
+			GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x, -1 * runSpeed );
 		}
 	}
 	void DragOnWall()						// no movements input, modify relevant states
 	{
 		animan.ClearRunningUp ();
 		animan.ClearRunningDown ();
-		rigidbody2D.velocity = Vector2.MoveTowards ( rigidbody2D.velocity, Vector2.zero, wallDrag * Time.deltaTime );
+		GetComponent<Rigidbody2D>().velocity = Vector2.MoveTowards ( GetComponent<Rigidbody2D>().velocity, Vector2.zero, wallDrag * Time.deltaTime );
 	}
 	
 	// DoJump: either initiate a jump or support the continuation/interruption of one
@@ -227,8 +227,8 @@ public class CharacterControls : MonoBehaviour
 					jumpTimer = 0;								// Reset jump timer
 					jumpMaxTimer = MIN_JUMP_FRAMES;				// Set max jump frames to min
 
-					if ( Mathf.Sign( rigidbody2D.velocity.y ) == -1f )	// if falling, set fall speed to zero for more responsive jump
-						rigidbody2D.velocity = new Vector2 ( rigidbody2D.velocity.x, 0f );
+					if ( Mathf.Sign( GetComponent<Rigidbody2D>().velocity.y ) == -1f )	// if falling, set fall speed to zero for more responsive jump
+						GetComponent<Rigidbody2D>().velocity = new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, 0f );
 				}
 			}
 			// if just about to hit jump frame limit, increase limits accordingly
@@ -248,7 +248,7 @@ public class CharacterControls : MonoBehaviour
 		{
 			float scale = 1f - ( (float) jumpTimer / (float) MAX_JUMP_FRAMES );		// scaling jump acceleration over the maximum POSSIBLE jump
 			float scaledMore = Mathf.Pow ( scale, jumpScaling );
-			Vector2 jumpVector = new Vector2 ( rigidbody2D.velocity.x, maxJumpSpeed );
+			Vector2 jumpVector = new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, maxJumpSpeed );
 
 			if ( !animan.IsMidair () )			// if jumping from wall, apply a burst of speed in the horizontal direction
 				jumpVector.x = runSpeed * directionFacing;
@@ -256,11 +256,11 @@ public class CharacterControls : MonoBehaviour
 			{	
 				// if midair, give some more control in the horizontal direction. this is in addition to the move function's speed boost
 				float xBurst = InputManagerLazy.GetInput( PLAYER_INDEX ).leftJoystickX * maxAirMoveSpeed;
-				rigidbody2D.velocity = Vector2.MoveTowards ( rigidbody2D.velocity, new Vector2 ( xBurst, rigidbody2D.velocity.y ), midairAgility * Time.fixedDeltaTime );
+				GetComponent<Rigidbody2D>().velocity = Vector2.MoveTowards ( GetComponent<Rigidbody2D>().velocity, new Vector2 ( xBurst, GetComponent<Rigidbody2D>().velocity.y ), midairAgility * Time.fixedDeltaTime );
 			}
 
 			// apply jump acceleration
-			rigidbody2D.velocity = Vector2.MoveTowards ( rigidbody2D.velocity, jumpVector, jumpAccel * scaledMore * Time.fixedDeltaTime );
+			GetComponent<Rigidbody2D>().velocity = Vector2.MoveTowards ( GetComponent<Rigidbody2D>().velocity, jumpVector, jumpAccel * scaledMore * Time.fixedDeltaTime );
 		}
 	}
 
@@ -276,7 +276,7 @@ public class CharacterControls : MonoBehaviour
 				fallSpeed = maxFallSpeed;
 				tempFallAccel = fallAccel;
 			}
-			rigidbody2D.velocity = Vector2.MoveTowards( rigidbody2D.velocity, new Vector2 ( rigidbody2D.velocity.x, fallSpeed * -1 ), tempFallAccel * Time.fixedDeltaTime );
+			GetComponent<Rigidbody2D>().velocity = Vector2.MoveTowards( GetComponent<Rigidbody2D>().velocity, new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, fallSpeed * -1 ), tempFallAccel * Time.fixedDeltaTime );
 		}
 	}
 
@@ -311,13 +311,13 @@ public class CharacterControls : MonoBehaviour
 		if ( inputs.y < 0f )
 			aerialSpeed = -1f * aerialDiveSpeed;
 
-		rigidbody2D.velocity = new Vector2 ( inputs.x * maxAirMoveSpeed, aerialSpeed );			// Apply the aerial maneuver
+		GetComponent<Rigidbody2D>().velocity = new Vector2 ( inputs.x * maxAirMoveSpeed, aerialSpeed );			// Apply the aerial maneuver
 	}
 
 	// DoAerialBounce: this allows players to perform a wall dash
 	public void DoWallDash ()
 	{
-		rigidbody2D.velocity = new Vector2 ( rigidbody2D.velocity.x, wallDashSpeed * InputManagerLazy.GetInput( PLAYER_INDEX ).leftJoystickY );
+		GetComponent<Rigidbody2D>().velocity = new Vector2 ( GetComponent<Rigidbody2D>().velocity.x, wallDashSpeed * InputManagerLazy.GetInput( PLAYER_INDEX ).leftJoystickY );
 	}
 
 	// GetHit: apply an acceleration scaled down based on character's resistance
@@ -325,14 +325,14 @@ public class CharacterControls : MonoBehaviour
 	{
 		if ( !newlySpawned )
 		{
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			float resistance = resistanceOnWall;
 			Vector2 newDir = direction;
 			if ( animan.IsMidair() )
 				resistance = resistanceInAir;
 			else
 				newDir = new Vector2 ( directionFacing, direction.y ).normalized;
-			rigidbody2D.velocity = newDir * power / resistance;
+			GetComponent<Rigidbody2D>().velocity = newDir * power / resistance;
 			animan.SetStunned ( ( int ) power );
 			SetLag ( ( int ) ( power / 3f ) );
 		}
@@ -346,8 +346,8 @@ public class CharacterControls : MonoBehaviour
 			lagFrames = 1;
 		lagTimer = 0;
 		animan.SetLagged ();
-		Debug.Log ( rigidbody2D.velocity );
-		storeVelocity = rigidbody2D.velocity;
+		Debug.Log ( GetComponent<Rigidbody2D>().velocity );
+		storeVelocity = GetComponent<Rigidbody2D>().velocity;
 	}
 
 	public bool IsLagged ()
@@ -378,8 +378,8 @@ public class CharacterControls : MonoBehaviour
 			++framesSinceDeath;
 			if( framesSinceDeath >= framesBeforeRespawn )
 			{
-				renderer.enabled = true;
-				rigidbody2D.velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y/* + Random.Range( -SpawnVariance, SpawnVariance ) */);
+				GetComponent<Renderer>().enabled = true;
+				GetComponent<Rigidbody2D>().velocity = new Vector2( SpawnVector.x + Random.Range( -SpawnVariance, SpawnVariance ), SpawnVector.y/* + Random.Range( -SpawnVariance, SpawnVariance ) */);
 				framesSinceDeath = 0;
 				newlySpawned = true;
 				respawning = false;
@@ -399,8 +399,8 @@ public class CharacterControls : MonoBehaviour
 		{
 			respawning = true;
 			transform.position = Spawner.transform.position;
-			renderer.enabled = false;
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Renderer>().enabled = false;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		}
 		else
 		{

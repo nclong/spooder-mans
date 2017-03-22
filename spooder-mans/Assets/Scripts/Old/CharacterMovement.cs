@@ -39,24 +39,24 @@ public class CharacterMovement : MonoBehaviour {
 	void FixedUpdate () {
 		//Moving
 		if ((attributes.OnWall && !attributes.Sweeping && !attributes.HookLaunched && !attributes.Hooked )) {
-			rigidbody2D.velocity += new Vector2( 0f, playerInput.leftJoystickY) * verticalAccel;
-			if( rigidbody2D.velocity.magnitude > playerSpeed )
+			GetComponent<Rigidbody2D>().velocity += new Vector2( 0f, playerInput.leftJoystickY) * verticalAccel;
+			if( GetComponent<Rigidbody2D>().velocity.magnitude > playerSpeed )
 			{
-				rigidbody2D.velocity = rigidbody2D.velocity.normalized * playerSpeed;
+				GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * playerSpeed;
 			}
 			if( playerInput.leftJoystickY.IsWithin(0f, 0.001f) && !attributes.Hooked && !attributes.HookTraveling)
 			{
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			}
 			
-			if (rigidbody2D.velocity.y < 0 )
+			if (GetComponent<Rigidbody2D>().velocity.y < 0 )
 			{
 				attributes.anim.SetBool("Idle", false);
 				attributes.anim.SetBool("Up", false);
 				attributes.anim.SetBool("Stunned", false);
 				attributes.anim.SetBool("Down", true);
 			}
-			else if (rigidbody2D.velocity.y > 0)
+			else if (GetComponent<Rigidbody2D>().velocity.y > 0)
 			{
 				attributes.anim.SetBool("Idle", false);
 				attributes.anim.SetBool("Down", false);
@@ -64,7 +64,7 @@ public class CharacterMovement : MonoBehaviour {
 				
 				attributes.anim.SetBool("Up", true);
 			}
-			else if (rigidbody2D.velocity.y == 0)
+			else if (GetComponent<Rigidbody2D>().velocity.y == 0)
 			{
 				attributes.anim.SetBool("Idle", true);
 				attributes.anim.SetBool("Down", false);
@@ -76,11 +76,11 @@ public class CharacterMovement : MonoBehaviour {
 		
 		if( !attributes.OnWall && !attributes.HookTraveling && !attributes.Hooked && !attributes.Sweeping && !attributes.Swept )
 		{
-			rigidbody2D.velocity += new Vector2( playerInput.leftJoystickX , 0f );
+			GetComponent<Rigidbody2D>().velocity += new Vector2( playerInput.leftJoystickX , 0f );
 			
-			if( Mathf.Abs( rigidbody2D.velocity.x ) > maxHorizSpeed )
+			if( Mathf.Abs( GetComponent<Rigidbody2D>().velocity.x ) > maxHorizSpeed )
 			{
-				rigidbody2D.velocity = new Vector2( rigidbody2D.velocity.x / Mathf.Abs( rigidbody2D.velocity.x ) * maxHorizSpeed, rigidbody2D.velocity.y );
+				GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x / Mathf.Abs( GetComponent<Rigidbody2D>().velocity.x ) * maxHorizSpeed, GetComponent<Rigidbody2D>().velocity.y );
 			}
 		}
 		
@@ -122,7 +122,7 @@ public class CharacterMovement : MonoBehaviour {
 				theHook.SetActive( false );
 				attributes.HookTraveling = false;
 				attributes.HookLaunched = false;
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			}
 		}
 		
@@ -136,13 +136,13 @@ public class CharacterMovement : MonoBehaviour {
 				Vector2 jump_vector;
 				if( playerInput.leftJoystickX != 0f )
 				{
-					jump_vector = new Vector2( rigidbody2D.velocity.x, 1 );
+					jump_vector = new Vector2( GetComponent<Rigidbody2D>().velocity.x, 1 );
 				}
 				else
 				{
 					jump_vector = new Vector2( 0f, 1f );
 				}
-				rigidbody2D.velocity += jump_vector.normalized * jumpAccel * powerScale;
+				GetComponent<Rigidbody2D>().velocity += jump_vector.normalized * jumpAccel * powerScale;
 			}
 		}
 		

@@ -190,7 +190,7 @@ public class HookLauncher : MonoBehaviour {
 		
 		if( inputReceived && inputReleased && !attributes.Hooked && !attributes.HookTraveling && !attributes.HookLaunched && !attributes.Swept && !attributes.Sweeping && !attributes.newlySpawned)
 		{
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			Vector3 hookDirection = (hookCursor.transform.position - transform.position);
 			//hookDirection = new Vector3(hookDirection.x * Mathf.Sign(transform.localScale.x), hookDirection.y, hookDirection.z);
 			hookManager.attributes = attributes;
@@ -201,7 +201,7 @@ public class HookLauncher : MonoBehaviour {
 		
 		if( (theHook.transform.position - transform.position).magnitude >= maxChainDistance )
 		{
-			theHook.rigidbody2D.velocity *= -1;
+			theHook.GetComponent<Rigidbody2D>().velocity *= -1;
 		}
 		
 		
@@ -213,7 +213,7 @@ public class HookLauncher : MonoBehaviour {
 		WallAttributes wall = (WallAttributes)GetComponent<WallAttributes>();
 		if( wall != null )
 		{
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			theHook.SetActive( false );
 			attributes.OnWall = true;
 			attributes.HookTraveling = false;

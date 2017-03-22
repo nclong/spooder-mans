@@ -57,21 +57,21 @@ public class FireManager : MonoBehaviour {
 			{
 				//stage 1
 				if (WhichWall <=5){
-					LeftWall.renderer.material.color = new Color(1, .61f, 1);
+					LeftWall.GetComponent<Renderer>().material.color = new Color(1, .61f, 1);
 				}
 				else if(WhichWall >5) {
-					RightWall.renderer.material.color = new Color(1, .61f, 1);
+					RightWall.GetComponent<Renderer>().material.color = new Color(1, .61f, 1);
 				}
 			}
 			else if(FireTime < TimeForStage2)
 			{
 				//stage 2
 				if (WhichWall <= 5){
-					LeftWall.renderer.material.color = new Color(1, .129f, .5255f);
+					LeftWall.GetComponent<Renderer>().material.color = new Color(1, .129f, .5255f);
 					fireAudio.Play ();
 				}
 				else if(WhichWall > 5) {
-					RightWall.renderer.material.color = new Color(1, .129f, .5255f);
+					RightWall.GetComponent<Renderer>().material.color = new Color(1, .129f, .5255f);
 					fireAudio.Play ();
 				}
 			}
@@ -79,21 +79,21 @@ public class FireManager : MonoBehaviour {
 			{
 				//stage 3
 				if (WhichWall <=5){
-					LeftWall.renderer.material.color = Color.red;
+					LeftWall.GetComponent<Renderer>().material.color = Color.red;
 					//fireAudio.Play ();
 					LeftAttributes.Fire = true;
 
 				}
 				else if(WhichWall >5) {
-					RightWall.renderer.material.color = Color.red;
+					RightWall.GetComponent<Renderer>().material.color = Color.red;
 					//fireAudio.Play ();
 					RightAttributes.Fire = true;
 				}
 			}
 			else 
 			{
-				LeftWall.renderer.material.color = Color.white;
-				RightWall.renderer.material.color = Color.white;
+				LeftWall.GetComponent<Renderer>().material.color = Color.white;
+				RightWall.GetComponent<Renderer>().material.color = Color.white;
 				LeftAttributes.Fire = false;
 				RightAttributes.Fire = false;
 				FireOn = false;

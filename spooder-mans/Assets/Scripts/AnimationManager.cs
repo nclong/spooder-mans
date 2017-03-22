@@ -99,6 +99,7 @@ public class AnimationManager : MonoBehaviour
 	{
 		StunAndSetStunStatuses ();
 		maxStun = frames;
+        stunTimer = 0;
 	}
 
 	public void StunAndSetStunStatuses ()

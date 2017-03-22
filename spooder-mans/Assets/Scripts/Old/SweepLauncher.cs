@@ -33,7 +33,7 @@ public class SweepLauncher : MonoBehaviour
 		attributes = transform.parent.GetComponent<CharacterAttributes>();
 		playerNum = attributes.playerNum;
 		playerInput = InputManager.PlayerInputs[playerNum];
-		collider2D.enabled = false;
+		GetComponent<Collider2D>().enabled = false;
 		cumulativeActiveFrames = windUpFrames + activeFrames;
 		cumulativeCooldownFrames = cumulativeActiveFrames + cooldownFrames;
 		
@@ -63,7 +63,7 @@ public class SweepLauncher : MonoBehaviour
 			
 			attributes.Sweeping = true;
 			startSweepPos = transform.position;
-			transform.parent.rigidbody2D.velocity = Vector2.zero;
+			transform.parent.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			attributes.HookLaunched = false;
 			attributes.HookTraveling = false;
 			attributes.Jumping = false;
@@ -89,7 +89,7 @@ public class SweepLauncher : MonoBehaviour
 			currentFrames++;
 			if( currentFrames <= windUpFrames )
 			{
-				collider2D.enabled = false;
+				GetComponent<Collider2D>().enabled = false;
 				
 				if (InAir)
 				{
@@ -107,7 +107,7 @@ public class SweepLauncher : MonoBehaviour
 			else if( currentFrames <= cumulativeActiveFrames )
 			{
 				attributes.SweepingActive = true;
-				collider2D.enabled = true;
+				GetComponent<Collider2D>().enabled = true;
 				
 				if (InAir)
 				{
@@ -126,7 +126,7 @@ public class SweepLauncher : MonoBehaviour
 			else if( currentFrames <= cumulativeCooldownFrames )
 			{
 				attributes.SweepingActive = false;
-				collider2D.enabled = false;
+				GetComponent<Collider2D>().enabled = false;
 				if (InAir)
 				{
 					attributes.anim.SetBool("AirSweep", false);
@@ -145,7 +145,7 @@ public class SweepLauncher : MonoBehaviour
 			{
 				attributes.Sweeping = false;
 				currentFrames = 0;
-				collider2D.enabled = false;
+				GetComponent<Collider2D>().enabled = false;
 				
 				if (InAir)
 				{
@@ -171,8 +171,8 @@ public class SweepLauncher : MonoBehaviour
 		CharacterAttributes character = CollisionObject.GetComponent<CharacterAttributes>();
 		if (character != null && character != attributes ) 
 		{
-			CollisionObject.rigidbody2D.isKinematic = true;
-			CollisionObject.collider2D.isTrigger = true;
+			CollisionObject.GetComponent<Rigidbody2D>().isKinematic = true;
+			CollisionObject.GetComponent<Collider2D>().isTrigger = true;
 			
 			character.OnWall = false;
 			character.HookLaunched = false;
@@ -186,7 +186,7 @@ public class SweepLauncher : MonoBehaviour
 			tossVector = CollisionObject.transform.position.x > 0
 				? new Vector2( -Strength, 0f )
 					: new Vector2( Strength, 0f );
-			CollisionObject.rigidbody2D.velocity = tossVector;
+			CollisionObject.GetComponent<Rigidbody2D>().velocity = tossVector;
 			
 			
 		}

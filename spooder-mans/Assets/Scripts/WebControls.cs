@@ -38,7 +38,7 @@ public class WebControls : MonoBehaviour
 	public void Launch ( Vector2 dir, float distance, float webspeed, float playerSpeed)
 	{
 		gameObject.SetActive( true );
-		rigidbody2D.velocity = dir * travelSpeed;
+		GetComponent<Rigidbody2D>().velocity = dir * travelSpeed;
 		//lineRender.SetPosition ( 0, transform.parent.position );
 		//hookAudio.Play ();
 		//soundManager.playGrappleAudio ();
